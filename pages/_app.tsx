@@ -1,6 +1,10 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import type { AppProps } from 'next/app';
+import './styles.scss';
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <div className="jk-app">
+      <Component {...pageProps} />
+    </div>
+  );
 }

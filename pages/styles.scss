@@ -1,0 +1,29 @@
+@import "@juki-team/base-ui/dist/styles/base";
+
+body {
+  margin: 0;
+  
+  .jk-app {
+    width: 100vw;
+    height: var(--100VH);
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:active {
+  color: var(--t-color-primary-light);
+}
+
+.app-card {
+  border: 3px solid var(--t-color-primary);
+  
+  &:hover {
+    box-shadow: 0 0 15px 0 var(--t-color-primary-light);
+    border: 3px solid var(--t-color-white);
+    box-sizing: border-box;
+  }
+}
