@@ -6,7 +6,10 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <div className="jk-app">
       <Component {...pageProps} />
-      <Analytics />
+      <Analytics beforeSend={(event) => {
+        event.url = 'https://judge.juki-ui.com/test';
+        return event;
+      }} />
     </div>
   );
 }
