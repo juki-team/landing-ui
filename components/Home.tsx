@@ -52,7 +52,7 @@ export default function Home() {
         <div className="jk-row gap jk-pad-lg">
           {apps.map(app => (
             <Link href={app.href}>
-              <div className="jk-col center jk-pad-lg jk-border-radius jk-shadow bc-we app-card" style={{ width: 310, height: 300 }}>
+              <div className="jk-col center jk-pad-lg jk-border-radius jk-shadow bc-we app-card" style={{ width: 320, height: 300 }}>
                 <div className="jk-row"><Image src={app.image} alt={app.name} height={80} width={160} /></div>
                 <div className="jk-row"><h2>{app.name}</h2></div>
                 <div className="jk-row center">
