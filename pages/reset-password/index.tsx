@@ -7,7 +7,7 @@ import {
   useNotification,
 } from '@juki-team/base-ui';
 import { ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
-import { JUKI_API_V1 } from 'config/constants/api';
+import { JUKI_API_V1 } from '../../config/constants';
 import { useRouter } from 'next/router';
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';

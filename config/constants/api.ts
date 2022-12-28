@@ -1,4 +1,4 @@
-import { API_VERSION, JUKI_SERVICE_BASE_URL } from 'config/constants/settings';
+import { API_VERSION, JUKI_SERVICE_BASE_URL } from './settings';
 
 export const JUKI_API_V1 = {
   AUTH: {
