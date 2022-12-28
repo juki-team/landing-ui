@@ -3,16 +3,10 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
 export default function Home() {
   
   const router = useRouter();
-  
-  useEffect(() => {
-    document.querySelector('body')?.classList.add('jk-theme-light');
-  }, []);
-  
   const apps = [
     {
       name: 'Juki Judge App',
@@ -51,8 +45,9 @@ export default function Home() {
         
         <div className="jk-row gap jk-pad-lg">
           {apps.map(app => (
-            <Link href={app.href}>
-              <div className="jk-col center jk-pad-lg jk-border-radius jk-shadow bc-we app-card" style={{ width: 320, height: 300 }}>
+            <Link href={app.href} key={app.name}>
+              <div className="jk-col center jk-pad-lg jk-border-radius jk-shadow bc-we app-card"
+                   style={{ width: 320, height: 300 }}>
                 <div className="jk-row"><Image src={app.image} alt={app.name} height={80} width={160} /></div>
                 <div className="jk-row"><h2>{app.name}</h2></div>
                 <div className="jk-row center">
@@ -63,7 +58,7 @@ export default function Home() {
                     </Link>}
                 </div>
                 <div className="jk-row"><p>{app.description}</p></div>
-                
+              
               </div>
             </Link>
           ))}
@@ -85,7 +80,7 @@ export default function Home() {
         </div>
         <div className="jk-row gap center">
           <GmailIcon />
-          <div className="jk-row fw-bd" style={{ width: 250 }}>oscargausscarvajal@gmail.com</div>
+          <div className="jk-row fw-bd" style={{ width: 250 }}>contact@juki.app</div>
         </div>
       </div>
     </div>
