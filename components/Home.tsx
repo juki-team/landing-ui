@@ -1,10 +1,10 @@
-import { GmailIcon, HeadsetMicIcon, LoadingIcon, PhoneIcon, T, TelegramIcon } from '@juki-team/base-ui';
+import { GmailIcon, HeadsetMicIcon, LoadingIcon, PhoneIcon, T, TelegramIcon } from 'components';
+import { useRouter } from 'hooks';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
-export default function Home() {
+export function Home() {
   
   const router = useRouter();
   const apps = [
@@ -46,8 +46,10 @@ export default function Home() {
         <div className="jk-row gap jk-pad-lg">
           {apps.map(app => (
             <Link href={app.href} key={app.name}>
-              <div className="jk-col center jk-pad-lg jk-border-radius jk-shadow bc-we app-card"
-                   style={{ width: 320, height: 300 }}>
+              <div
+                className="jk-col center jk-pad-lg jk-border-radius jk-shadow bc-we app-card"
+                style={{ width: 320, height: 300 }}
+              >
                 <div className="jk-row"><Image src={app.image} alt={app.name} height={80} width={160} /></div>
                 <div className="jk-row"><h2>{app.name}</h2></div>
                 <div className="jk-row center">

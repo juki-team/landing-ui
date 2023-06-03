@@ -1,20 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  authorizedRequest,
-  cleanRequest,
-  notifyResponse,
-  SetLoaderStatusOnClickType,
-  useNotification,
-} from '@juki-team/base-ui';
-import { ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
-import { JUKI_API_V1 } from '../../config/constants';
-import { useRouter } from 'next/router';
+import { ButtonLoader, InputPassword, T } from 'components';
+import { JUKI_API_V1 } from 'config/constants';
+import { authorizedRequest, cleanRequest } from 'helpers';
+import { useNotification, useRouter } from 'hooks';
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
+import { ContentResponseType, HTTPMethod, SetLoaderStatusOnClickType, Status } from 'types';
 import * as yup from 'yup';
-import { ButtonLoader, InputPassword, T } from '../../components';
 
-export type ProfileChangePasswordInput = {
+type ProfileChangePasswordInput = {
   newPassword: string,
   newPasswordConfirmation: string,
 }
@@ -27,7 +21,7 @@ const profileSettingsChangePasswordSchema = yup.object().shape({
       'must have at least one uppercase, one lowercase letter and one number'),
   newPasswordConfirmation: yup.string()
     .required('cannot be empty')
-    .oneOf([yup.ref('newPassword'), ''], 'both passwords must match'),
+    .oneOf([ yup.ref('newPassword'), '' ], 'both passwords must match'),
 });
 
 function ResetPassword() {
@@ -40,7 +34,7 @@ function ResetPassword() {
   
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
   const { query: { resetPasswordToken } } = useRouter();
-  const { addNotification } = useNotification();
+  const { notifyResponse } = useNotification();
   
   return (
     <div className="jk-col extend stretch">
@@ -55,7 +49,7 @@ function ResetPassword() {
                   method: HTTPMethod.POST,
                   body: JSON.stringify({ password: data.newPassword, resetPasswordToken }),
                 }));
-                notifyResponse(response, addNotification, setLoaderRef.current);
+                notifyResponse(response, setLoaderRef.current);
               })}
               className="jk-col gap extend stretch"
             >
@@ -96,7 +90,6 @@ function ResetPassword() {
       </div>
     </div>
   );
-  
 }
 
 export default ResetPassword;
