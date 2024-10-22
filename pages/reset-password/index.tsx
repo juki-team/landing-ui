@@ -1,11 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ButtonLoader, InputPassword, T } from 'components';
+import { ButtonLoader, HelpSection, InputPassword, MainMenu, T } from 'components';
 import { JUKI_API_V1 } from 'config/constants';
 import { authorizedRequest, cleanRequest } from 'helpers';
-import { useNotification, useRouter } from 'hooks';
+import { useJukiNotification, useSearchParams } from 'hooks';
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { ContentResponseType, HTTPMethod, SetLoaderStatusOnClickType, Status } from 'types';
+import { ContentResponseType, HTTPMethod, MenuViewMode, SetLoaderStatusOnClickType, Status } from 'types';
 import * as yup from 'yup';
 
 type ProfileChangePasswordInput = {
@@ -33,62 +33,69 @@ function ResetPassword() {
   });
   
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
-  const { query: { resetPasswordToken } } = useRouter();
-  const { notifyResponse } = useNotification();
+  const { searchParams } = useSearchParams();
+  const resetPasswordToken = searchParams.get('resetPasswordToken')!;
+  const { notifyResponse } = useJukiNotification();
   
   return (
-    <div className="jk-col extend stretch">
-      <div className="jk-row extend stretch">
-        <div className="jk-col gap nowrap bc-we jk-pad-lg jk-border-radius">
-          <div className="jk-col extend stretch nowrap">
-            <div className="jk-row jk-pad-sm"><h3><T className="tt-se">forgot your password?</T></h3></div>
-            <form
-              onSubmit={handleSubmit(async (data: ProfileChangePasswordInput) => {
-                setLoaderRef.current?.(Status.LOADING);
-                const response = cleanRequest<ContentResponseType<any>>(await authorizedRequest(JUKI_API_V1.AUTH.RESET_PASSWORD(), {
-                  method: HTTPMethod.POST,
-                  body: JSON.stringify({ password: data.newPassword, resetPasswordToken }),
-                }));
-                notifyResponse(response, setLoaderRef.current);
-              })}
-              className="jk-col gap extend stretch"
-            >
-              <div className="jk-form-item">
-                <label>
-                  <T>password</T>
-                  <InputPassword register={register('newPassword') as any} />
-                </label>
-                <p><T>{errors.newPassword?.message || ''}</T></p>
-              </div>
-              <div className="jk-form-item">
-                <label>
-                  <T>confirm password</T>
-                  <InputPassword register={register('newPasswordConfirmation')} />
-                </label>
-                <p><T>{errors.newPasswordConfirmation?.message || ''}</T></p>
-              </div>
-              <div className="jk-row gap right">
-                <ButtonLoader
-                  type="primary"
-                  setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
-                  disabled={!isValid}
-                  submit
-                  extend
-                >
-                  <T>change my password</T>
-                </ButtonLoader>
-              </div>
-            </form>
-            <div className="jk-divider" />
-            {/*<div className="jk-row center gap">*/}
-            {/*  <Button type="text" size="small">sign in</Button>*/}
-            {/*  <div className="jk-divider horizontal" />*/}
-            {/*  <Button type="text" size="small">sign up</Button>*/}
-            {/*</div>*/}
+    <MainMenu
+      menuViewMode={MenuViewMode.HORIZONTAL}
+      onSeeMyProfile={() => {
+      }}
+      menu={[]}
+    >
+      <div className="jk-col extend stretch">
+        <div className="jk-row extend stretch">
+          <div className="jk-col gap nowrap bc-we jk-pg-lg jk-border-radius">
+            <div className="jk-col extend stretch nowrap">
+              <div className="jk-row jk-pg-sm"><h3><T className="tt-se">forgot your password?</T></h3></div>
+              <div className="jk-row jk-pg-sm"><T className="tt-se fw-bd">change your password</T></div>
+              <form
+                onSubmit={handleSubmit(async (data: ProfileChangePasswordInput) => {
+                  setLoaderRef.current?.(Status.LOADING);
+                  const response = cleanRequest<ContentResponseType<any>>(await authorizedRequest(JUKI_API_V1.AUTH.RESET_PASSWORD(), {
+                    method: HTTPMethod.POST,
+                    body: JSON.stringify({ password: data.newPassword, resetPasswordToken }),
+                  }));
+                  notifyResponse(response, setLoaderRef.current);
+                })}
+                className="jk-col gap extend stretch"
+              >
+                <div className="jk-form-item">
+                  <InputPassword
+                    labelPlacement="top"
+                    label={<T className="tt-se">new password</T>}
+                    register={register('newPassword') as any}
+                  />
+                  <p><T>{errors.newPassword?.message || ''}</T></p>
+                </div>
+                <div className="jk-form-item">
+                  <InputPassword
+                    labelPlacement="top"
+                    label={<T className="tt-se">confirm new password</T>}
+                    register={register('newPasswordConfirmation')}
+                  />
+                  <p><T>{errors.newPasswordConfirmation?.message || ''}</T></p>
+                </div>
+                <div className="jk-row gap right">
+                  <ButtonLoader
+                    type="primary"
+                    setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
+                    disabled={!isValid}
+                    submit
+                    extend
+                  >
+                    <T>change my password</T>
+                  </ButtonLoader>
+                </div>
+              </form>
+              <div className="jk-divider" />
+              <HelpSection />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </MainMenu>
   );
 }
 
