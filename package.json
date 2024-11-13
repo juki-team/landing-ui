@@ -10,7 +10,7 @@
     "pull": "yarn add @juki-team/commons @juki-team/base-ui"
   },
   "dependencies": {
-    "@juki-team/base-ui": "^0.1.631",
+    "@juki-team/base-ui": "^0.1.645",
     "@juki-team/commons": "^0.0.654",
     "@vercel/analytics": "^0.1.6",
     "i18next": "^23.16.0",

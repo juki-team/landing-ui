@@ -210,10 +210,10 @@
   resolved "https://registry.yarnpkg.com/@icons/material/-/material-0.2.4.tgz#e90c9f71768b3736e76d7dd6783fc6c2afa88bc8"
   integrity sha512-QPcGmICAPbGLGb6F/yNf/KzKqvFx8z5qx3D1yFqVAjoFmXK35EgyW+cJ57Te3CNsmzblwtzakLGFqHPqrfb4Tw==
 
-"@juki-team/base-ui@^0.1.631":
-  version "0.1.631"
-  resolved "https://npm.pkg.github.com/download/@juki-team/base-ui/0.1.631/eae5a10257ed21bd38b8cbbb315433fbe360dd7f#eae5a10257ed21bd38b8cbbb315433fbe360dd7f"
-  integrity sha512-u/OYBETB4LkIqbIr12QgE6OATJ1qgtBuPKxWVE1O27KkuT+kqrSTk8CtGA/L2sRTMk5c3CLKZ/x7no4801S8Tw==
+"@juki-team/base-ui@^0.1.645":
+  version "0.1.645"
+  resolved "https://npm.pkg.github.com/download/@juki-team/base-ui/0.1.645/fcfb961f652e3fb5dc9e94719c2d82795406b479#fcfb961f652e3fb5dc9e94719c2d82795406b479"
+  integrity sha512-Vm0+dMaA65E6reoRhp2jfoaoNVcBQHCp1rCWSITH/8j2fxxSuv5zW4Cxi3GiV5Yz4qZuoPn//9OEJU9RAPinyQ==
   dependencies:
     "@codemirror/lang-cpp" "^6.0.2"
     "@codemirror/lang-html" "^6.4.9"
