@@ -1,10 +1,8 @@
-import { useRouter } from 'next/router';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { cloneURLSearchParams } from 'helpers';
+import { usePathname, useSearchParams as useSearchParamsRouter } from 'next/navigation';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AppendSearchParamsType, DeleteSearchParamsType, SetSearchParamsType } from 'types';
-
-const cloneURLSearchParams = (urlSearchParams: URLSearchParams) => {
-  return new URLSearchParams(urlSearchParams.toString());
-};
+import { useRouter } from './useRouter';
 
 type AppendSearchParamsActions = {
   action: 'appendSearchParams',
@@ -53,31 +51,15 @@ const processSearchParams = (searchParams: URLSearchParams, appendSearchParamsAc
   }
   
   return newSearchParams;
-}
+};
 
 export const useSearchParams = () => {
+  const { push, replace } = useRouter();
   
-  const { asPath, query, push, replace, route, isReady, ...rest } = useRouter();
-  const pathnameRef = useRef(asPath);
-  pathnameRef.current = asPath.split('?')[0];
+  const pathnameRef = useRef('');
+  pathnameRef.current = usePathname();
   
-  const searchParams = useMemo(() => {
-    const routeParamsKeys = route.split('/').filter(route => route === `[${route.substring(1, route.length - 1)}]`).map(route => route.substring(1, route.length - 1));
-    const urlSearchParams = new URLSearchParams('');
-    for (const [ key, values ] of Object.entries(query)) {
-      if (routeParamsKeys.includes(key)) {
-        continue;
-      }
-      if (typeof values === 'string') {
-        urlSearchParams.append(key, values);
-      } else if (Array.isArray(values)) {
-        for (const value of values) {
-          urlSearchParams.append(key, value);
-        }
-      }
-    }
-    return urlSearchParams;
-  }, [ query, route ]);
+  const searchParams = useSearchParamsRouter();
   
   const [ updateTrigger, setUpdateTrigger ] = useState(Date.now());
   const searchParamsRef = useRef(searchParams);
@@ -88,7 +70,7 @@ export const useSearchParams = () => {
     newSearchParamsSorted.sort();
     searchParamsSorted.sort();
     if (newSearchParamsSorted.toString() !== searchParamsSorted.toString()) {
-      await push({ pathname: pathnameRef.current, query: newSearchParams.toString() });
+      await push(pathnameRef.current + '?' + newSearchParams.toString());
     }
   }, [ push ]);
   
@@ -98,7 +80,7 @@ export const useSearchParams = () => {
     newSearchParamsSorted.sort();
     searchParamsSorted.sort();
     if (newSearchParamsSorted.toString() !== searchParamsSorted.toString()) {
-      await replace({ pathname: pathnameRef.current, query: newSearchParams.toString() });
+      await replace(pathnameRef.current + '?' + newSearchParams.toString());
     }
   }, [ replace ]);
   
@@ -125,7 +107,7 @@ export const useSearchParams = () => {
             props: toReplace,
           } as AppendSearchParamsActions);
         }
-      })
+      });
       let newSearchParams = processSearchParams(searchParamsRef.current, replaceSearchParamsActions);
       if (replaceSearchParamsActions.length) {
         appendSearchParamsActionsRef.current = [];
@@ -141,17 +123,29 @@ export const useSearchParams = () => {
     void chunkUpdateSearchParams();
   }, [ searchParams, updateTrigger, pushSearchParams, replaceSearchParams ]);
   
-  const appendSearchParams: AppendSearchParamsType = useCallback(async (...props) => {
+  const appendSearchParams: AppendSearchParamsType = useCallback(async (...props: {
+    name: string;
+    value: string;
+    replace?: boolean;
+  }[]) => {
     appendSearchParamsActionsRef.current.push({ action: 'appendSearchParams', props });
     setUpdateTrigger(Date.now());
   }, []);
   
-  const deleteSearchParams: DeleteSearchParamsType = useCallback(async (...props) => {
+  const deleteSearchParams: DeleteSearchParamsType = useCallback(async (...props: {
+    name: string;
+    value?: string;
+    replace?: boolean;
+  }[]) => {
     appendSearchParamsActionsRef.current.push({ action: 'deleteSearchParams', props });
     setUpdateTrigger(Date.now());
   }, []);
   
-  const setSearchParams: SetSearchParamsType = useCallback(async (...props) => {
+  const setSearchParams: SetSearchParamsType = useCallback(async (...props: {
+    name: string;
+    value: string | string[];
+    replace?: boolean;
+  }[]) => {
     appendSearchParamsActionsRef.current.push({ action: 'setSearchParams', props });
     setUpdateTrigger(Date.now());
   }, []);

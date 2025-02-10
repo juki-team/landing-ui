@@ -1,3 +1,5 @@
+'use client';
+
 import { Button, ExpandMoreIcon, FlagEnImage, FlagEsImage, Popover, T } from 'components';
 import { useJukiUserSettings } from 'hooks';
 import Image from 'next/image';

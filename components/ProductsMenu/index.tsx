@@ -1,3 +1,5 @@
+'use client';
+
 import { useJukiUI } from '@juki-team/base-ui';
 import { NavigateNextIcon } from 'components';
 
@@ -114,9 +116,9 @@ export const ProductsMenu = () => {
               </div>
             </div>
             {index < productsData.length - 1 &&
-                <div className="jk-row jk-divider horizontal" style={{ height: 'unset' }}>
-
-                </div>}
+              <div className="jk-row jk-divider horizontal" style={{ height: 'unset' }}>
+              
+              </div>}
           </>
         ))}
       </div>

@@ -1,3 +1,5 @@
+'use client';
+
 import { useJukiRouter } from '@juki-team/base-ui';
 import { useEffect } from 'react';
 

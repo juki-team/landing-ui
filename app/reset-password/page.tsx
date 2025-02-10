@@ -1,3 +1,5 @@
+'use client';
+
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ButtonLoader, HelpSection, InputPassword, MainMenu, T } from 'components';
 import { JUKI_API_V1 } from 'config/constants';
@@ -83,7 +85,7 @@ function ResetPassword() {
                     setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
                     disabled={!isValid}
                     submit
-                    extend
+                    expand
                   >
                     <T>change my password</T>
                   </ButtonLoader>

@@ -1,12 +1,10 @@
+'use client';
+
 export {
-  JukiUIProvider,
-  JukiUserProvider,
   ButtonLoader,
   InputPassword,
   GmailIcon,
-  HeadsetMicIcon,
   LoadingIcon,
-  PhoneIcon,
   T,
   TelegramIcon,
   Button,
@@ -16,6 +14,7 @@ export {
   PlayCircleIcon,
   ExpandMoreIcon,
   FlagEnImage,
+  JukiLoadingLayout,
   FlagEsImage,
   Popover,
   Input,
@@ -28,4 +27,8 @@ export {
   HelpSection,
   NewVersionAvailableTrigger,
   SpinIcon,
+  ErrorBoundary,
+  JukiSocketAlert,
+  SubmissionModal,
+  UserPreviewModal,
 } from '@juki-team/base-ui';

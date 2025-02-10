@@ -1,5 +1,7 @@
-import { useJukiUI } from '@juki-team/base-ui';
+'use client';
+
 import { FacebookIcon, T } from 'components';
+import { useJukiUI } from 'hooks';
 import Image from 'next/image';
 
 export function Footer() {

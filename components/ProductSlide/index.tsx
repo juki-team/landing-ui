@@ -1,11 +1,13 @@
+'use client';
+
 import { ArrowBackIcon, ArrowForwardIcon, Button, NavigateNextIcon, T } from 'components';
 import Image from 'next/image';
 import { useState } from 'react';
 
 export const ProductSlide = ({ name, description, logoUrl, sections, urlDescription, even }: any) => {
-
-  const [currentSection, setCurrentSection] = useState(0);
-
+  
+  const [ currentSection, setCurrentSection ] = useState(0);
+  
   const contentParagraph = (name: string, description: string) => {
     const descriptionArray = description.split(name);
     const descriptionParagraph = descriptionArray.map((item, index) => {
@@ -16,11 +18,11 @@ export const ProductSlide = ({ name, description, logoUrl, sections, urlDescript
     });
     return <p className="tx-l cr-g3 fw-bd">{descriptionParagraph}</p>;
   };
-
+  
   const background = even ? 'bc-we' : 'bc-w2';
-
+  
   return (
-    <div className={"jk-row extend " + background}>
+    <div className={'jk-row extend ' + background}>
       <div className="jk-col" style={{ width: 'var(--modal-width)' }}>
         <div className="jk-col pad-top">
           <div
@@ -61,16 +63,16 @@ export const ProductSlide = ({ name, description, logoUrl, sections, urlDescript
                   <p className="tx-s"><T>{sections[currentSection].description}</T></p>
                 </div>
               </div>
-
+              
               <div className="jk-row left extend jk-pad-md">
                 <a href="#" className="cr-py fw-bd tx-l">
                   <div className="jk-row"><span><T>{urlDescription}</T></span>
                     <NavigateNextIcon /></div>
                 </a>
               </div>
-
+              
               <div className="jk-row nowrap gap">
-
+                
                 <a
                   href="#"
                   onClick={() => setCurrentSection(prev => {
