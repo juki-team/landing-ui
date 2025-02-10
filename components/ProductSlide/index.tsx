@@ -3,10 +3,12 @@
 import { ArrowBackIcon, ArrowForwardIcon, Button, NavigateNextIcon, T } from 'components';
 import Image from 'next/image';
 import { useState } from 'react';
+import { useJukiUI } from '../../hooks';
 
-export const ProductSlide = ({ name, description, logoUrl, sections, urlDescription, even }: any) => {
+export const ProductSlide = ({ name, description, logoUrl, sections, url, urlDescription, even }: any) => {
   
   const [ currentSection, setCurrentSection ] = useState(0);
+  const { components: { Link } } = useJukiUI();
   
   const contentParagraph = (name: string, description: string) => {
     const descriptionArray = description.split(name);
@@ -23,11 +25,11 @@ export const ProductSlide = ({ name, description, logoUrl, sections, urlDescript
   
   return (
     <div className={'jk-row extend ' + background}>
-      <div className="jk-col" style={{ width: 'var(--modal-width)' }}>
-        <div className="jk-col pad-top">
+      <div className="jk-col" style={{ width: 'var(--modal-width-md)' }}>
+        <div className="jk-col jk-pg-t">
           <div
-            className="jk-row center nowrap gap jk-pad-md"
-            style={{ width: 'calc(var(--modal-width) - 4 * var(--screen-col-width))' }}
+            className="jk-row center nowrap gap jk-pg-md"
+            style={{ width: 'calc(var(--modal-width-md) - 4 * var(--screen-col-width))' }}
           >
             <div className="jk-row">
               <Image src={logoUrl} alt="Juki Logo" width={247} height={120} />
@@ -38,24 +40,19 @@ export const ProductSlide = ({ name, description, logoUrl, sections, urlDescript
           </div>
         </div>
         <div className="jk-row gap">
-          {
-            sections.map((section: any, index: number) => (
-              <Button
-                key={section.name + index}
-                //className="bc-g6 cr-bk"
-                className={currentSection === index ? 'bc-sy cr-we' : 'bc-g6 cr-bk'}
-                style={{ textTransform: 'none', borderRadius: '30px' }}
-                onClick={() => setCurrentSection(index)}
-              >
-                <T>{section.name}</T>
-              </Button>
-            ))
-          }
+          {sections.map((section: any, index: number) => (
+            <Button
+              key={section.name + index}
+              onClick={() => setCurrentSection(index)}
+            >
+              <T>{section.name}</T>
+            </Button>
+          ))}
         </div>
         {
-          <div className="jk-row gap jk-pad-lg nowrap">
-            <div className="jk-col jk-pad-lg">
-              <div className="jk-col left extend jk-pad-md">
+          <div className="jk-row gap jk-pg-lg nowrap">
+            <div className="jk-col">
+              <div className="jk-col left extend jk-pg-md">
                 <div className="jk-row extend left">
                   <h1><span className="cr-py"><T>{sections[currentSection].name}</T></span></h1>
                 </div>
@@ -64,11 +61,11 @@ export const ProductSlide = ({ name, description, logoUrl, sections, urlDescript
                 </div>
               </div>
               
-              <div className="jk-row left extend jk-pad-md">
-                <a href="#" className="cr-py fw-bd tx-l">
+              <div className="jk-row left extend jk-pg-md">
+                <Link href={url} className="cr-py fw-bd tx-l" target="_blank">
                   <div className="jk-row"><span><T>{urlDescription}</T></span>
                     <NavigateNextIcon /></div>
-                </a>
+                </Link>
               </div>
               
               <div className="jk-row nowrap gap">

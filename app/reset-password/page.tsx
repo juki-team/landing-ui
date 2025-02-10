@@ -1,6 +1,7 @@
 'use client';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useJukiRouter } from '@juki-team/base-ui';
 import { ButtonLoader, HelpSection, InputPassword, MainMenu, T } from 'components';
 import { JUKI_API_V1 } from 'config/constants';
 import { authorizedRequest, cleanRequest } from 'helpers';
@@ -38,6 +39,7 @@ function ResetPassword() {
   const { searchParams } = useSearchParams();
   const resetPasswordToken = searchParams.get('resetPasswordToken')!;
   const { notifyResponse } = useJukiNotification();
+  const { pushRoute } = useJukiRouter();
   
   return (
     <MainMenu
@@ -59,7 +61,9 @@ function ResetPassword() {
                     method: HTTPMethod.POST,
                     body: JSON.stringify({ password: data.newPassword, resetPasswordToken }),
                   }));
-                  notifyResponse(response, setLoaderRef.current);
+                  if (notifyResponse(response, setLoaderRef.current)) {
+                    pushRoute('/');
+                  }
                 })}
                 className="jk-col gap extend stretch"
               >

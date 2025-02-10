@@ -10,7 +10,7 @@ export function Footer() {
   
   return (
     <div className="jk-row extend cr-pd tx-m bc-we">
-      <div className="jk-col pad-left-right stretch" style={{ width: 'var(--modal-width)' }}>
+      <div className="jk-col pad-left-right stretch" style={{ width: 'var(--modal-width-md)' }}>
         <div className="jk-row stretch space-between extend nowrap ">
           <div className="jk-col stretch top left">
             <div className="jk-row left">

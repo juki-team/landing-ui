@@ -347,10 +347,10 @@
   resolved "https://registry.yarnpkg.com/@img/sharp-win32-x64/-/sharp-win32-x64-0.33.5.tgz#56f00962ff0c4e0eb93d34a047d29fa995e3e342"
   integrity sha512-MpY/o8/8kj+EcnxwvrP4aTJSWw/aZ7JIGR4aBeZkZw5B7/Jn+tY9/VNwtcoGmdT7GfggGIU4kygOMSbYnOrAbg==
 
-"@juki-team/base-ui@^1.0.77":
-  version "1.0.77"
-  resolved "https://npm.pkg.github.com/download/@juki-team/base-ui/1.0.77/d5f127aff6a354ffac6ac720bb91724c0366eed2#d5f127aff6a354ffac6ac720bb91724c0366eed2"
-  integrity sha512-abNbxyJMcAsjru6aLOBX24JdDZlbHGahx6a0MlVb9iqMXnAWzwqduAWRvahfSQpWiAq+ADFIuXMIV8VoQ+zU5w==
+"@juki-team/base-ui@^1.0.78":
+  version "1.0.78"
+  resolved "https://npm.pkg.github.com/download/@juki-team/base-ui/1.0.78/6ac477f3d5de7466e67109a3e3a786de664410d9#6ac477f3d5de7466e67109a3e3a786de664410d9"
+  integrity sha512-YbeYZPEkugGt+KSoXprrBvaUnibMLDdaYABW3LWNrCS0lV6PzvUHJP1zXTmnlULTd87GEnHds5b85fx29CS+Gg==
   dependencies:
     "@codemirror/autocomplete" "^6.18.3"
     "@codemirror/lang-cpp" "^6.0.2"

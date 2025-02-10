@@ -90,7 +90,7 @@ export const ProductsMenu = () => {
   ];
   
   return (
-    <div style={{ width: 'var(--modal-width)' }} className="jk-col cr-pd bc-we">
+    <div style={{ width: 'var(--modal-width-md)' }} className="jk-col cr-pd bc-we">
       <div className="jk-row stretch top gap nowrap">
         {productsData.map((product, index) => (
           <>

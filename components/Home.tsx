@@ -1,5 +1,6 @@
 'use client';
 
+import { QueryParamKey } from '@juki-team/base-ui/types';
 import {
   ArticleIcon,
   Button,
@@ -8,7 +9,6 @@ import {
   GmailIcon,
   JukiCompleteLaptopImage,
   MainMenu,
-  NavigateNextIcon,
   PlayCircleIcon,
   ProductSlide,
   ProductsMenu,
@@ -16,20 +16,20 @@ import {
   TelegramIcon,
 } from 'components';
 import { ExpandMoreIcon, Popover } from 'components/index';
-import { useJukiUser } from 'hooks';
+import { useJukiUI, useJukiUser, useSearchParams } from 'hooks';
 import Head from 'next/head';
 import Image from 'next/image';
 import React from 'react';
 import { MenuViewMode } from 'types';
-import blogs from '../public/blogs_jk.png';
 import mockup_1 from '../public/mockup_1.svg';
-import novedades from '../public/novedades_jk.png';
 import { Language, ProfileSetting } from '../types';
 
 export function Home() {
   
   const { user } = useJukiUser();
   const isEs = user.settings?.[ProfileSetting.LANGUAGE] === Language.ES;
+  const { setSearchParams } = useSearchParams();
+  const { components: { Link } } = useJukiUI();
   
   return (
     <>
@@ -89,11 +89,11 @@ export function Home() {
         <div className="jk-col top nowrap stretch" style={{ overflowY: 'scroll', maxHeight: '100%' }}>
           <div className="jk-col nowrap">
             <div className="jk-row extend">
-              <div className="jk-col bc-w2 jk-pad-lg" style={{ width: 'var(--modal-width)' }}>
+              <div className="jk-col gap bc-w2 jk-pg-lg" style={{ width: 'var(--modal-width-md)' }}>
                 <div className="jk-row extend">
-                  <div className="jk-col flex-1 jk-pad-lg">
+                  <div className="jk-col gap flex-1 jk-pg-lg">
                     <div className="jk-col">
-                      <p style={{ fontSize: '60px', lineHeight: '1' }}>
+                      <h1>
                         {
                           isEs ?
                             (<>El < span className="cr-at">hogar</span> para <span className="fw-bd">programadores</span>
@@ -103,7 +103,7 @@ export function Home() {
                                 className="fw-bd cr-py"
                               >programmers</span></>)
                         }
-                      </p>
+                      </h1>
                       <p className="tx-h cr-g3 pad-top-bottom">
                         <T>
                           Juki is an advanced platform designed to enhance programming skills. With its comprehensive
@@ -115,17 +115,14 @@ export function Home() {
                     </div>
                     <div className="jk-row left extend gap">
                       <div className="jk-row gap">
-                        <Button
-                          className="jk-border-radius bc-we cr-pd"
-                          style={{ textTransform: 'none', border: '1px solid black', borderRadius: '5%' }}
-                        >
-                          <div className="jk-row nowrap jk-pad-sm"><PlayCircleIcon size="small" />
-                            <div>Demo</div>
-                          </div>
+                        <Button icon={<PlayCircleIcon />}>
+                          <T>Demo</T>
                         </Button>
-                        <Button className="bc-py" style={{ textTransform: 'none', height: '100%', borderRadius: '5%' }}>
-                          <div className="jk-row nowrap jk-pad-sm"><T>Sign up</T></div>
-                        </Button>
+                        {!user.isLogged && (
+                          <Button onClick={() => setSearchParams({ name: QueryParamKey.SIGN_UP, value: '1' })}>
+                            <T>Sign up</T>
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -136,7 +133,7 @@ export function Home() {
                 
                 <div
                   className="jk-row center fw-nl pad-top-bottom"
-                  style={{ width: 'calc(var(--modal-width) - 6 * var(--screen-col-width))' }}
+                  style={{ width: 'calc(var(--modal-width-md) - 6 * var(--screen-col-width))' }}
                 >
                   {isEs ?
                     <p className="tx-h cr-g3 ta-cr">
@@ -197,6 +194,7 @@ export function Home() {
                   description={product.description}
                   logoUrl={product.logoUrl}
                   sections={product.sections}
+                  url={product.url}
                   urlDescription={product.urlDescription}
                   even={index % 2 === 0}
                 />
@@ -204,95 +202,92 @@ export function Home() {
               
             }
             
+            {/*<div className="jk-row extend nowrap">*/}
+            {/*  <div className="jk-col bc-w2 jk-pg-t" style={{ width: 'var(--modal-width-md)' }}>*/}
+            {/*    <div*/}
+            {/*      className="jk-row jk-pg-t"*/}
+            {/*      style={{ width: 'calc(var(--modal-width-md) - 4 * var(--screen-col-width))' }}*/}
+            {/*    >*/}
+            {/*      <h2 className="ta-cr">*/}
+            {/*    <span className="cr-bk fw-bd">*/}
+            {/*      Unete a la comunidad hoy y comienza a mejorar tus habilidades en programacion*/}
+            {/*    </span>*/}
+            {/*      </h2>*/}
+            {/*    </div>*/}
+            {/*    <div*/}
+            {/*      className="jk-row jk-pg-tb"*/}
+            {/*      style={{ width: 'calc(var(--modal-width-md) - 4 * var(--screen-col-width))' }}*/}
+            {/*    ><p className="tx-h ta-cr cr-g3">Juki es una plataforma diseñada para ayudar a las personas a mejorar*/}
+            {/*      sus*/}
+            {/*      habilidades de programacion y alcanzar sus objetivos de carrera.</p></div>*/}
+            {/*    <div className="jk-row jk-pg-lg">*/}
+            {/*      <div className="jk-row jk-pg-lg bc-we jk-border-radius nowrap elevation-2">*/}
+            {/*        <div className="jk-col flex-1">*/}
+            {/*          <h1><span className="cr-sy fw-bd" style={{ fontSize: '45px' }}>10K+</span></h1>*/}
+            {/*          <p className="fw-bd ta-cr">Miembros de la comunidad agregados cada mes</p>*/}
+            {/*        </div>*/}
+            {/*        <div className="jk-col flex-1">*/}
+            {/*          <h1><span className="cr-py fw-bd" style={{ fontSize: '45px' }}>5K+</span></h1>*/}
+            {/*          <p className="fw-bd ta-cr">Problemas resueltos cada mes</p>*/}
+            {/*        </div>*/}
+            {/*        <div className="jk-col flex-1">*/}
+            {/*          <h1><span className="cr-ss fw-bd" style={{ fontSize: '45px' }}>1k+</span></h1>*/}
+            {/*          <p className="fw-bd ta-cr">Problemas resueltos cada mes</p>*/}
+            {/*        </div>*/}
+            {/*      </div>*/}
+            {/*    </div>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
             
-            <div className="jk-row extend nowrap">
-              
-              <div className="jk-col bc-w2 pad-top" style={{ width: 'var(--modal-width)' }}>
-                <div
-                  className="jk-row pad-top"
-                  style={{ width: 'calc(var(--modal-width) - 4 * var(--screen-col-width))' }}
-                >
-                  <h2 className="ta-cr">
-                <span className="cr-bk fw-bd">
-                  Unete a la comunidad hoy y comienza a mejorar tus habilidades en programacion
-                </span>
-                  </h2>
-                </div>
-                <div
-                  className="jk-row pad-top-bottom"
-                  style={{ width: 'calc(var(--modal-width) - 4 * var(--screen-col-width))' }}
-                ><p className="tx-h ta-cr cr-g3">Juki es una plataforma diseñada para ayudar a las personas a mejorar
-                  sus
-                  habilidades de programacion y alcanzar sus objetivos de carrera.</p></div>
-                <div className="jk-row jk-pad-lg">
-                  <div className="jk-row jk-pad-lg bc-we jk-border-radius nowrap elevation-2">
-                    <div className="jk-col flex-1">
-                      <h1><span className="cr-sy fw-bd" style={{ fontSize: '45px' }}>10K+</span></h1>
-                      <p className="fw-bd ta-cr">Miembros de la comunidad agregados cada mes</p>
-                    </div>
-                    <div className="jk-col flex-1">
-                      <h1><span className="cr-py fw-bd" style={{ fontSize: '45px' }}>5K+</span></h1>
-                      <p className="fw-bd ta-cr">Problemas resueltos cada mes</p>
-                    </div>
-                    <div className="jk-col flex-1">
-                      <h1><span className="cr-ss fw-bd" style={{ fontSize: '45px' }}>1k+</span></h1>
-                      <p className="fw-bd ta-cr">Problemas resueltos cada mes</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="jk-row extend bc-we">
-              
-              <div className="jk-col nowrap" style={{ width: 'var(--modal-width)' }}>
-                <div className="jk-row pad-top"><h1><span className="cr-py fw-bd">Comunidad</span></h1></div>
-                <div className="jk-row extend gap jk-pad-lg nowrap">
-                  <div
-                    className="jk-col jk-pad-lg jk-border-radius elevation-3"
-                    style={{ width: 'calc(var(--modal-width) - 9 * var(--screen-col-width))' }}
-                  >
-                    <div className="jk-row extend center pad-top"><h3>Blog</h3></div>
-                    <div className="jk-pad-sm ta-cr"><p className="cr-g3">Accede a nuestra seccion de noticias donde
-                      podra
-                      encontrar informacion actualizada de nuestras actividades</p></div>
-                    <div className="jk-row extend" style={{ position: 'relative', height: '200px' }}><Image
-                      src={blogs} alt="Juki Logo" fill style={{ objectFit: 'contain' }}
-                    /></div>
-                    <a>
-                      <div className="jk-row jk-pad-lg">Ir al blog <NavigateNextIcon /></div>
-                    </a>
-                  </div>
-                  
-                  <div
-                    className="jk-col jk-pad-lg jk-border-radius elevation-3"
-                    style={{ width: 'calc(var(--modal-width) - 9 * var(--screen-col-width))' }}
-                  >
-                    <div className="jk-row extend center pad-top"><h3>Novedades</h3></div>
-                    <div className="jk-pad-sm ta-cr"><p className="cr-g3">Accede a nuestra seccion de noticias donde
-                      podra
-                      encontrar informacion actualizada de nuestras actividades</p></div>
-                    <div className="jk-row extend" style={{ position: 'relative', height: '200px' }}><Image
-                      src={novedades} alt="Juki Logo" fill style={{ objectFit: 'contain' }}
-                    /></div>
-                    <a>
-                      <div className="jk-row jk-pad-lg">Ir a las novedades <NavigateNextIcon /></div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/*<div className="jk-row extend bc-we">*/}
+            {/*  <div className="jk-col nowrap" style={{ width: 'var(--modal-width-md)' }}>*/}
+            {/*    <div className="jk-row jk-pg-t"><h1><span className="cr-py fw-bd">Comunidad</span></h1></div>*/}
+            {/*    <div className="jk-row extend gap jk-pg-lg nowrap">*/}
+            {/*      <div*/}
+            {/*        className="jk-col jk-pg-lg jk-border-radius elevation-3"*/}
+            {/*        style={{ width: 'calc(var(--modal-width-md) - 9 * var(--screen-col-width))' }}*/}
+            {/*      >*/}
+            {/*        <div className="jk-row extend center jk-pg-t"><h3>Blog</h3></div>*/}
+            {/*        <div className="jk-pg-sm ta-cr"><p className="cr-g3">Accede a nuestra seccion de noticias donde*/}
+            {/*          podra*/}
+            {/*          encontrar informacion actualizada de nuestras actividades</p></div>*/}
+            {/*        <div className="jk-row extend" style={{ position: 'relative', height: '200px' }}><Image*/}
+            {/*          src={blogs} alt="Juki Logo" fill style={{ objectFit: 'contain' }}*/}
+            {/*        /></div>*/}
+            {/*        <a>*/}
+            {/*          <div className="jk-row jk-pg-lg">Ir al blog <NavigateNextIcon /></div>*/}
+            {/*        </a>*/}
+            {/*      </div>*/}
+            {/*      */}
+            {/*      <div*/}
+            {/*        className="jk-col jk-pg-lg jk-border-radius elevation-3"*/}
+            {/*        style={{ width: 'calc(var(--modal-width-md) - 9 * var(--screen-col-width))' }}*/}
+            {/*      >*/}
+            {/*        <div className="jk-row extend center jk-pg-t"><h3>Novedades</h3></div>*/}
+            {/*        <div className="jk-pg-sm ta-cr"><p className="cr-g3">Accede a nuestra seccion de noticias donde*/}
+            {/*          podra*/}
+            {/*          encontrar informacion actualizada de nuestras actividades</p></div>*/}
+            {/*        <div className="jk-row extend" style={{ position: 'relative', height: '200px' }}><Image*/}
+            {/*          src={novedades} alt="Juki Logo" fill style={{ objectFit: 'contain' }}*/}
+            {/*        /></div>*/}
+            {/*        <a>*/}
+            {/*          <div className="jk-row jk-pg-lg">Ir a las novedades <NavigateNextIcon /></div>*/}
+            {/*        </a>*/}
+            {/*      </div>*/}
+            {/*    </div>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
             
             <div className="jk-row extend">
-              <div className="jk-col bc-w2" style={{ width: 'var(--modal-width)' }}>
-                <div className="jk-row pad-top"><h1><span className="cr-py fw-bd">Conoce a nuestro equipo</span></h1>
+              <div className="jk-col bc-w2" style={{ width: 'var(--modal-width-md)' }}>
+                <div className="jk-row jk-pg-t"><h1><span className="cr-py fw-bd">Conoce a nuestro equipo</span></h1>
                 </div>
-                <div className="jk-row jk-pad-lg"><p className="tx-h ta-cr cr-g3" style={{ width: '70%' }}>Nuestra
+                <div className="jk-row jk-pg-lg"><p className="tx-h ta-cr cr-g3" style={{ width: '70%' }}>Nuestra
                   filosofia
                   es simple: contrate un equipo de personas diversas y apasionadas y forme una cultura que lo capacite
                   para
                   hacer su mejor trabajo</p></div>
-                <div className="jk-row jk-pad-lg">
+                <div className="jk-row jk-pg-lg">
                   {/* <div className="jk-col jk-pad-lg">
                 <Image src="https://images.juki.pub/c/juki-head.svg" className="jk-user-profile-img huge elevation-1 bc-we" alt="Juki team" width={150} height={150} style={{ width: "150px", height: "150px" }} />
                 <span className="tx-l fw-bd">Juan Perez</span>
@@ -321,7 +316,7 @@ export function Home() {
               </div> */}
                   {
                     jukiTeam.map((member, index) => (
-                      <div key={index} className="jk-col jk-pad-lg">
+                      <div key={index} className="jk-col jk-pg-lg">
                         <Image
                           src={member.image} className="jk-user-profile-img huge elevation-1 bc-we" alt="Juki team"
                           width={150} height={150} style={{ width: '150px', height: '150px' }}
@@ -331,17 +326,15 @@ export function Home() {
                         <span>{member.roles.join(', ')}</span>
                         <span>{member.description}</span>
                         <div className="jk-row gap">
-                          {
-                            member.socialMedia.map((socialMedia, index) => (
-                              <a key={index} href={socialMedia.url}>{
-                                (() => {
-                                  if (socialMedia.name === 'Facebook') return (<FacebookIcon />);
-                                  if (socialMedia.name === 'Telegram') return (<TelegramIcon />);
-                                  if (socialMedia.name === 'Gmail') return (<GmailIcon />);
-                                })()
-                              }</a>
-                            ))
-                          }
+                          {member.socialMedia.map((socialMedia, index) => (
+                            <Link key={index} href={socialMedia.url} target="_blank">{
+                              (() => {
+                                if (socialMedia.name === 'Facebook') return (<FacebookIcon />);
+                                if (socialMedia.name === 'Telegram') return (<TelegramIcon />);
+                                if (socialMedia.name === 'Gmail') return (<GmailIcon />);
+                              })()
+                            }</Link>
+                          ))}
                         </div>
                       </div>
                     ))
@@ -526,6 +519,7 @@ const products = [
         image: mockup_1,
       },
     ],
+    url: 'https://judge.juki.app',
     urlDescription: 'Explore Juki Judge',
   },
   {
@@ -554,6 +548,7 @@ const products = [
         image: mockup_1,
       },
     ],
+    url: 'https://coach.juki.app',
     urlDescription: 'Explore Juki Coach',
   },
   {
@@ -587,6 +582,7 @@ const products = [
         image: mockup_1,
       },
     ],
+    url: 'https://utils.juki.app',
     urlDescription: 'Explore Juki Utils',
   },
 ];
