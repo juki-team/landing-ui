@@ -1,12 +1,5 @@
-'use client';
-
-import { useJukiRouter } from '@juki-team/base-ui';
-import { useEffect } from 'react';
+import { Redirect } from 'components';
 
 export default function Rest() {
-  const { pushRoute } = useJukiRouter();
-  useEffect(() => {
-    pushRoute('/');
-  }, []);
-  return null;
+  return <Redirect />;
 }

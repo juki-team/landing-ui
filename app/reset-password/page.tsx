@@ -1,11 +1,10 @@
 'use client';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useJukiRouter } from '@juki-team/base-ui';
 import { ButtonLoader, HelpSection, InputPassword, MainMenu, T } from 'components';
 import { JUKI_API_V1 } from 'config/constants';
 import { authorizedRequest, cleanRequest } from 'helpers';
-import { useJukiNotification, useSearchParams } from 'hooks';
+import { useJukiNotification, useRouterStore, useSearchParams } from 'hooks';
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { ContentResponseType, HTTPMethod, MenuViewMode, SetLoaderStatusOnClickType, Status } from 'types';
@@ -27,7 +26,7 @@ const profileSettingsChangePasswordSchema = yup.object().shape({
     .oneOf([ yup.ref('newPassword'), '' ], 'both passwords must match'),
 });
 
-function ResetPassword() {
+export default function ResetPassword() {
   
   const { register, handleSubmit, formState: { errors, isValid } } = useForm<ProfileChangePasswordInput>({
     resolver: yupResolver(profileSettingsChangePasswordSchema),
@@ -39,7 +38,7 @@ function ResetPassword() {
   const { searchParams } = useSearchParams();
   const resetPasswordToken = searchParams.get('resetPasswordToken')!;
   const { notifyResponse } = useJukiNotification();
-  const { pushRoute } = useJukiRouter();
+  const pushRoute = useRouterStore(state => state.pushRoute);
   
   return (
     <MainMenu
@@ -104,5 +103,3 @@ function ResetPassword() {
     </MainMenu>
   );
 }
-
-export default ResetPassword;

@@ -1,6 +1,5 @@
 'use client';
 
-import { QueryParamKey } from '@juki-team/base-ui/types';
 import {
   ArticleIcon,
   Button,
@@ -16,17 +15,17 @@ import {
   TelegramIcon,
 } from 'components';
 import { ExpandMoreIcon, Popover } from 'components/index';
-import { useJukiUI, useJukiUser, useSearchParams } from 'hooks';
+import { useJukiUI, useSearchParams, useUserStore } from 'hooks';
 import Head from 'next/head';
 import Image from 'next/image';
 import React from 'react';
-import { MenuViewMode } from 'types';
+import { MenuViewMode, QueryParamKey } from 'types';
 import mockup_1 from '../public/mockup_1.svg';
 import { Language, ProfileSetting } from '../types';
 
 export function Home() {
   
-  const { user } = useJukiUser();
+  const user = useUserStore(store => store.user);
   const isEs = user.settings?.[ProfileSetting.LANGUAGE] === Language.ES;
   const { setSearchParams } = useSearchParams();
   const { components: { Link } } = useJukiUI();
@@ -52,8 +51,8 @@ export function Home() {
                   <ProductsMenu />
                 }
                 triggerOn="click"
-                placement="bottomLeft"
-                marginOfChildren={1}
+                placement="bottom-start"
+                // marginOfChildren={1}
               >
                 <div>{children}</div>
               </Popover>

@@ -18,15 +18,6 @@ body {
   }
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-a:active {
-  color: var(--t-color-primary-light);
-}
-
 .app-card {
   border: 3px solid var(--t-color-primary);
   

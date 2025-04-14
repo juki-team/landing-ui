@@ -78,7 +78,15 @@ export default async function Layout({ children }: { children: ReactNode }) {
     <html lang="en" className={inter.variable}>
     <body>
     <iframe
+      style={{ display: 'none' }} src="https://judge.juki.app/jk-cross.html"
+      className="juki-iframe-cross-domain"
+    />
+    <iframe
       style={{ display: 'none' }} src="https://utils.juki.app/jk-cross.html"
+      className="juki-iframe-cross-domain"
+    />
+    <iframe
+      style={{ display: 'none' }} src="https://coach.juki.app/jk-cross.html"
       className="juki-iframe-cross-domain"
     />
     <Suspense fallback={<Loading />}>

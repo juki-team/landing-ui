@@ -26,7 +26,7 @@ export function NavigationBar() {
               <ProductsMenu />
             }
             triggerOn="click"
-            placement="bottomLeft"
+            placement="bottom-start"
           >
             <div className="jk-row">
               <T>Products</T>

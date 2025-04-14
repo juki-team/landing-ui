@@ -1,4 +1,5 @@
-const Page = () => {
+export default function PrivacyPolicy() {
+  
   return (
     <>
       <div
@@ -66,5 +67,3 @@ word-break: break-word !important;
     </>
   );
 };
-
-export default Page;

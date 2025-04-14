@@ -10,7 +10,7 @@ import {
   T,
   UserPreviewModal,
 } from 'components';
-import { jukiApiSocketManager, jukiGlobalStore } from 'config';
+import { jukiApiSocketManager } from 'config';
 import {
   JUKI_APP_COMPANY_KEY,
   JUKI_SERVICE_V1_URL,
@@ -19,14 +19,14 @@ import {
   JUKI_TOKEN_NAME,
   NODE_ENV,
 } from 'config/constants';
-import { useEffect, useJukiUI, useJukiUser, useState } from 'hooks';
+import { useEffect, useJukiUI, useUserStore } from 'hooks';
 import { createInstance, i18n } from 'i18next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
 import React, { Children, PropsWithChildren } from 'react';
 import { SWRConfig } from 'swr';
-import { FC, ImageCmpProps, Language } from 'types';
+import { FC, ImageCmpProps } from 'types';
 import { useRouter } from '../hooks/useRouter';
 import { useSearchParams } from '../hooks/useSearchParams';
 import initTranslations from '../i18n/i18n';
@@ -37,7 +37,7 @@ void initTranslations(i18nInstance);
 
 const SponsoredByTag = () => {
   
-  const { company: { key } } = useJukiUser();
+  const key = useUserStore(state => state.company.key);
   const { components: { Link } } = useJukiUI();
   
   if (key === JUKI_APP_COMPANY_KEY) {
@@ -54,21 +54,11 @@ const SponsoredByTag = () => {
 
 export const RootLayout = ({ children }: PropsWithChildren<{}>) => {
   
-  const [ _, setLanguage ] = useState<Language | undefined>();
-  
   useEffect(() => {
     jukiApiSocketManager.setApiSettings(JUKI_SERVICE_V1_URL, JUKI_SERVICE_V2_URL, JUKI_TOKEN_NAME);
     jukiApiSocketManager.setSocketSettings(JUKI_SOCKET_BASE_URL);
-    void jukiGlobalStore.setI18n(i18nInstance);
-    
-    const handleLanguageChange = (lng: Language) => setLanguage(lng);
-    
-    i18nInstance.on('languageChanged', handleLanguageChange);
-    return () => {
-      i18nInstance.off('languageChanged', handleLanguageChange);
-    };
-    
   }, []);
+  ;
   
   const { isLoadingRoute, push, replace, refresh } = useRouter();
   const routeParams = useParams();
