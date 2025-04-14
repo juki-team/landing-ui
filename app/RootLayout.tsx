@@ -58,7 +58,6 @@ export const RootLayout = ({ children }: PropsWithChildren<{}>) => {
     jukiApiSocketManager.setApiSettings(JUKI_SERVICE_V1_URL, JUKI_SERVICE_V2_URL, JUKI_TOKEN_NAME);
     jukiApiSocketManager.setSocketSettings(JUKI_SOCKET_BASE_URL);
   }, []);
-  ;
   
   const { isLoadingRoute, push, replace, refresh } = useRouter();
   const routeParams = useParams();
@@ -104,13 +103,13 @@ export const RootLayout = ({ children }: PropsWithChildren<{}>) => {
         }}
         initialLastPath={{}}
       >
-        <NewVersionAvailableTrigger apiVersionUrl="/api/version" />
-        <Analytics key="analytics" />
         {Children.toArray(children)}
+        <SponsoredByTag />
+        <JukiSocketAlert />
         <UserPreviewModal key="user-preview-modal" />
         <SubmissionModal key="submission-modal" />
-        <JukiSocketAlert />
-        <SponsoredByTag />
+        <NewVersionAvailableTrigger apiVersionUrl="/api/version" />
+        <Analytics key="analytics" />
       </JukiProviders>
     </SWRConfig>
   );
