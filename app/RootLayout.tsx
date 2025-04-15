@@ -5,7 +5,7 @@ import {
   ErrorBoundary,
   JukiProviders,
   JukiSocketAlert,
-  NewVersionAvailableTrigger,
+  NewVersionAvailable,
   SubmissionModal,
   T,
   UserPreviewModal,
@@ -19,7 +19,7 @@ import {
   JUKI_TOKEN_NAME,
   NODE_ENV,
 } from 'config/constants';
-import { useEffect, useJukiUI, useUserStore } from 'hooks';
+import { useEffect, useJukiUI, usePreloadComponents, useUserStore } from 'hooks';
 import { createInstance, i18n } from 'i18next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -63,13 +63,14 @@ export const RootLayout = ({ children }: PropsWithChildren<{}>) => {
   const routeParams = useParams();
   const pathname = usePathname();
   const { searchParams, setSearchParams, deleteSearchParams, appendSearchParams } = useSearchParams();
+  usePreloadComponents();
   
   const app = (
     <SWRConfig
       value={{
         revalidateIfStale: true, // when back to pages
         revalidateOnFocus: false,
-        revalidateOnReconnect: false,
+        revalidateOnReconnect: true,
         errorRetryCount: 8,
         errorRetryInterval: 100,
         // shouldRetryOnError: (error) => {
@@ -108,7 +109,7 @@ export const RootLayout = ({ children }: PropsWithChildren<{}>) => {
         <JukiSocketAlert />
         <UserPreviewModal key="user-preview-modal" />
         <SubmissionModal key="submission-modal" />
-        <NewVersionAvailableTrigger apiVersionUrl="/api/version" />
+        <NewVersionAvailable apiVersionUrl="/api/version" />
         <Analytics key="analytics" />
       </JukiProviders>
     </SWRConfig>

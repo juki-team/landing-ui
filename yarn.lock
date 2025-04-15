@@ -427,10 +427,10 @@
   resolved "https://registry.yarnpkg.com/@img/sharp-win32-x64/-/sharp-win32-x64-0.33.5.tgz#56f00962ff0c4e0eb93d34a047d29fa995e3e342"
   integrity sha512-MpY/o8/8kj+EcnxwvrP4aTJSWw/aZ7JIGR4aBeZkZw5B7/Jn+tY9/VNwtcoGmdT7GfggGIU4kygOMSbYnOrAbg==
 
-"@juki-team/base-ui@^1.0.214":
-  version "1.0.214"
-  resolved "https://npm.pkg.github.com/download/@juki-team/base-ui/1.0.214/09f72f236fec06b2cc259057240f9d7ae1658da6#09f72f236fec06b2cc259057240f9d7ae1658da6"
-  integrity sha512-f+8ispKRvjsPgreu3RhGAyw/yw0K8MlTNIx7Bgl1dNb2RlazkoR/JS5shZMA91HB8Zp1b0+cD+7Wdac+ij22ag==
+"@juki-team/base-ui@^1.0.221":
+  version "1.0.221"
+  resolved "https://npm.pkg.github.com/download/@juki-team/base-ui/1.0.221/df0cea0d2bfcf3137a72c6ec3ce216f04f65d197#df0cea0d2bfcf3137a72c6ec3ce216f04f65d197"
+  integrity sha512-pNBkI1F+QLOCfsf4rdXgZ8iZszazIKCgms7u4Ai+VHrun+2CbgHBTdP70tfztWJEODQ468m1t1ZwK35WgCBtwA==
   dependencies:
     "@codemirror/autocomplete" "^6.18.6"
     "@codemirror/lang-cpp" "^6.0.2"
@@ -474,10 +474,10 @@
     yup "^1.6.1"
     zustand "^5.0.3"
 
-"@juki-team/commons@^0.0.762":
-  version "0.0.762"
-  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.762/c8db36d9a220d4670aa535a53dfc2846db8c2fbd#c8db36d9a220d4670aa535a53dfc2846db8c2fbd"
-  integrity sha512-s63u2WbosDAE64PU8FlznQwXUbaWk5ax8d/zdCvmRaCZlqd6ybIvqsjwyaVhM5GZ+7CGNKh1dJMeXhaNV8ltGg==
+"@juki-team/commons@^0.0.764":
+  version "0.0.764"
+  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.764/0b365de5cdcd7c82db950ed476c659ed848d2eb2#0b365de5cdcd7c82db950ed476c659ed848d2eb2"
+  integrity sha512-zlUVCeAnCKt+AnzmRiDiej49C62j6rWHoUsBxr5Zc9QOEsZK0SiM+x+P9d+FbhVBcv82E8q9YjaqEpMvMiuL0A==
 
 "@lezer/common@^1.0.0", "@lezer/common@^1.0.2", "@lezer/common@^1.1.0", "@lezer/common@^1.2.0", "@lezer/common@^1.2.1":
   version "1.2.3"

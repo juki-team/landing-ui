@@ -2,6 +2,7 @@
 
 export {
   ButtonLoader,
+  PageNotFound,
   InputPassword,
   T,
   Button,
@@ -13,7 +14,7 @@ export {
   JukiProviders,
   MainMenu,
   HelpSection,
-  NewVersionAvailableTrigger,
+  NewVersionAvailable,
   ErrorBoundary,
   JukiSocketAlert,
   SubmissionModal,

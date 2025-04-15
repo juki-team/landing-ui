@@ -1,3 +1,1 @@
-import { jukiApiSocketManager as _jukiApiSocketManager } from '@juki-team/base-ui/settings';
-
-export const jukiApiSocketManager = _jukiApiSocketManager;
+export { jukiApiSocketManager, jukiAppRoutes } from '@juki-team/base-ui/settings';
