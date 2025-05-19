@@ -1,31 +1,35 @@
 'use client';
 
 import { useJukiUI } from '@juki-team/base-ui';
-import { NavigateNextIcon } from 'components';
+import { NavigateNextIcon, T } from 'components';
 
 export const ProductsMenu = () => {
   
-  const { components: { Image } } = useJukiUI();
+  const { components: { Image, Link } } = useJukiUI();
   
   const productsData = [
     {
       name: 'Juki Judge',
       description: 'Los programadores pueden motivarse a mejorar compitiendo en linea y comparando sus resultados con otros usuarios.',
       image: 'https://images.juki.pub/c/juki-judge-logo-horizontal-color.svg',
-      url: '/judge',
+      url: 'https://judge.juki.app',
       urlDescription: 'Explora Juki Judge',
       urls: [
         {
-          name: 'Problems',
-          url: '/judge',
+          name: 'problems',
+          url: 'https://judge.juki.app/problems',
         },
         {
-          name: 'Rankings',
-          url: '/judge/rankings',
+          name: 'contests',
+          url: 'https://judge.juki.app/contests',
         },
         {
-          name: 'Contests',
-          url: '/judge/contests',
+          name: 'rankings',
+          url: 'https://judge.juki.app/ranking',
+        },
+        {
+          name: 'boards',
+          url: 'https://judge.juki.app/boards',
         },
       ],
     },
@@ -33,24 +37,20 @@ export const ProductsMenu = () => {
       name: 'Juki Couch',
       description: 'Los programadores pueden mejorar y avanzar en su carrera al aprender nuevos lenguajes y habilidades de programación',
       image: 'https://images.juki.pub/c/juki-judge-logo-horizontal-color.svg',
-      url: '/couch',
+      url: 'https://coach.juki.app',
       urlDescription: 'Explora Juki Couch',
       urls: [
         {
-          name: 'Courses',
-          url: '/couch',
+          name: 'worksheets',
+          url: 'https://coach.juki.app/worksheets',
         },
         {
-          name: 'Tasks',
-          url: '/couch/tasks',
+          name: 'courses',
+          url: 'https://coach.juki.app/courses',
         },
         {
-          name: 'Teams',
-          url: '/couch/teams',
-        },
-        {
-          name: 'Schedules',
-          url: '/couch/schedules',
+          name: 'classes',
+          url: 'https://coach.juki.app/classes',
         },
       ],
     },
@@ -58,7 +58,7 @@ export const ProductsMenu = () => {
       name: 'Juki Utils',
       description: 'El complemento ideal para Juki Judge y Juki Couch, ya que proporciona a los programdores todo lo necesario en un solo lugar',
       image: 'https://images.juki.pub/c/juki-judge-logo-horizontal-color.svg',
-      url: '/utils',
+      url: 'https://utils.juki.app',
       urlDescription: 'Explora Juki Utils',
       urls: [
         {
@@ -90,7 +90,7 @@ export const ProductsMenu = () => {
   ];
   
   return (
-    <div style={{ width: 'var(--modal-width-md)' }} className="jk-col cr-pd bc-we">
+    <div style={{ width: 'var(--modal-width-md)' }} className="jk-col cr-pd bc-we jk-pg jk-br-ie">
       <div className="jk-row stretch top gap nowrap">
         {productsData.map((product, index) => (
           <>
@@ -99,19 +99,24 @@ export const ProductsMenu = () => {
                 <div className="jk-col top jk-pad-sm">
                   <Image src="https://images.juki.pub/c/juki-head.svg" alt="Juki Logo" height={100} width={100} />
                 </div>
-                <div className="jk-col stretch left">
+                <div className="jk-col gap stretch left">
                   <h2 className="fw-bd cr-g2 jk-pg-tb">{product.name}</h2>
                   <div className="tx-m pad-bottom">{product.description}</div>
-                  <a href={product.url}>
+                  <Link href={product.url}>
                     <div className="jk-row left nowrap pad-bottom tx-m cr-py fw-bd">
                       {product.urlDescription}
                       <NavigateNextIcon />
                     </div>
-                  </a>
-                  {product.urls.map((url, index) => (
-                    <div key={index} className="tx-m cr-py fw-bd pad-left-right jk-pg-sm-b">
-                      <a href={url.url}>{url.name}</a></div>
-                  ))}
+                  </Link>
+                  <div className="jk-col stretch left">
+                    {product.urls.map((url, index) => (
+                      <div key={index} className="tx-m cr-py fw-bd jk-pg-sm-l">
+                        <Link href={url.url}>
+                          <T className="tt-se">{url.name}</T>
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

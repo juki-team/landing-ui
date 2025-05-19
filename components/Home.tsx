@@ -43,16 +43,13 @@ export function Home() {
         menu={[
           {
             icon: null,
-            label: <div className="jk-row cr-pd fw-bd tx-m"><T>products</T><ExpandMoreIcon /></div>,
+            label: <div className="jk-row fw-bd tx-m"><T>products</T><ExpandMoreIcon /></div>,
             selected: false,
             menuItemWrapper: ({ children }) => (
               <Popover
-                content={
-                  <ProductsMenu />
-                }
-                triggerOn="click"
+                content={<ProductsMenu />}
                 placement="bottom-start"
-                // marginOfChildren={1}
+                offset={4}
               >
                 <div>{children}</div>
               </Popover>

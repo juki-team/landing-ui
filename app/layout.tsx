@@ -68,12 +68,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Layout({ children }: { children: ReactNode }) {
-  
-  // jukiApiSocketManager.setSocketSettings(JUKI_SOCKET_BASE_URL);
-  // const { company } = useJukiUser();
-  // const customTitle = `${company.name ? company.name : 'Juki'}  judge${title ? ' - ' + title : ''}`;
-  // const customDescription = `${description ? description : 'Juki Judge is designed to make people improve their programming skills'}`;
-  
   return (
     <html lang="en" className={inter.variable}>
     <body>
