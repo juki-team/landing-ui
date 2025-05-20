@@ -62,28 +62,12 @@ export const ProductsMenu = () => {
       urlDescription: 'Explora Juki Utils',
       urls: [
         {
-          name: 'Codes',
-          url: '/utils',
+          name: 'URL shortener',
+          url: 'https://utils.juki.app/url-shortener',
         },
         {
-          name: 'Documents',
-          url: '/utils/documents',
-        },
-        {
-          name: 'Images',
-          url: '/utils/images',
-        },
-        {
-          name: 'Board',
-          url: '/utils/board',
-        },
-        {
-          name: 'Input test case generator',
-          url: '/utils/input-generator',
-        },
-        {
-          name: 'URL Shortener',
-          url: '/utils/url-shortener',
+          name: 'Test cases generator',
+          url: 'https://utils.juki.app/test-cases-generator',
         },
       ],
     },

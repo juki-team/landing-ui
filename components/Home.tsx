@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  ArticleIcon,
   Button,
   FacebookIcon,
   Footer,
@@ -19,14 +18,16 @@ import { useJukiUI, useSearchParams, useUserStore } from 'hooks';
 import Head from 'next/head';
 import Image from 'next/image';
 import React from 'react';
-import { MenuViewMode, QueryParamKey } from 'types';
+import { MenuViewMode, QueryParamKey, Theme } from 'types';
 import mockup_1 from '../public/mockup_1.svg';
 import { Language, ProfileSetting } from '../types';
 
 export function Home() {
   
-  const user = useUserStore(store => store.user);
-  const isEs = user.settings?.[ProfileSetting.LANGUAGE] === Language.ES;
+  const userPreferredTheme = useUserStore(state => state.user.settings[ProfileSetting.THEME]);
+  const userPreferredLanguage = useUserStore(state => state.user.settings[ProfileSetting.LANGUAGE]);
+  const userIsLogged = useUserStore(state => state.user.isLogged);
+  const isEs = userPreferredLanguage === Language.ES;
   const { setSearchParams } = useSearchParams();
   const { components: { Link } } = useJukiUI();
   
@@ -55,32 +56,71 @@ export function Home() {
               </Popover>
             ),
           },
-          {
-            icon: <ArticleIcon />,
-            label: <T>news</T>,
-            selected: false,
-            menuItemWrapper: ({ children }) => (
-              <div className="cr-pd">{children}</div>
-            ),
-          },
-          {
-            icon: <ArticleIcon />,
-            label: <T>blog</T>,
-            selected: false,
-            menuItemWrapper: ({ children }) => (
-              <div className="cr-pd">{children}</div>
-            ),
-          },
-          {
-            icon: <ArticleIcon />,
-            label: <T>about us</T>,
-            selected: false,
-            menuItemWrapper: ({ children }) => (
-              <div className="cr-pd">{children}</div>
-            ),
-          },
+          // {
+          //   icon: <ArticleIcon />,
+          //   label: <T>news</T>,
+          //   selected: false,
+          //   menuItemWrapper: ({ children }) => (
+          //     <div className="cr-pd">{children}</div>
+          //   ),
+          // },
+          // {
+          //   icon: <ArticleIcon />,
+          //   label: <T>blog</T>,
+          //   selected: false,
+          //   menuItemWrapper: ({ children }) => (
+          //     <div className="cr-pd">{children}</div>
+          //   ),
+          // },
+          // {
+          //   icon: <ArticleIcon />,
+          //   label: <T>about us</T>,
+          //   selected: false,
+          //   menuItemWrapper: ({ children }) => (
+          //     <div className="cr-pd">{children}</div>
+          //   ),
+          // },
         ]}
         menuViewMode={MenuViewMode.HORIZONTAL}
+        moreApps={
+          <>
+            <Link href="https://judge.juki.app">
+              <div className="jk-row gap left">
+                <Image
+                  width={100}
+                  height={50}
+                  src={`https://images.juki.pub/assets/juki-judge-horizontal-${userPreferredTheme === Theme.DARK ? 'white' : 'color'}-logo.png`}
+                  alt="juki judge"
+                />
+                <div className="link">judge.juki.app</div>
+              </div>
+            </Link>
+            <Link href="https://utils.juki.app">
+              <div className="jk-row gap left">
+                <Image
+                  width={100}
+                  height={50}
+                  src={`https://images.juki.pub/assets/juki-utils-horizontal-${userPreferredTheme === Theme.DARK ? 'white' : 'color'}-logo.png`}
+                  alt="juki utils"
+                />
+                <div className="link">utils.juki.app</div>
+              </div>
+            </Link>
+            <Link href="https://coach.juki.app">
+              <div className="jk-row gap left">
+                <Image
+                  width={100}
+                  height={50}
+                  src={`https://images.juki.pub/assets/juki-coach-horizontal-${userPreferredTheme === Theme.DARK ? 'white' : 'color'}-logo.png`}
+                  alt="juki coach"
+                />
+                <div className="jk-row nowrap" style={{ alignItems: 'baseline' }}>
+                  <T className="link">coach.juki.app</T>
+                </div>
+              </div>
+            </Link>
+          </>
+        }
       >
         <div className="jk-col top nowrap stretch" style={{ overflowY: 'scroll', maxHeight: '100%' }}>
           <div className="jk-col nowrap">
@@ -114,7 +154,7 @@ export function Home() {
                         <Button icon={<PlayCircleIcon />}>
                           <T>Demo</T>
                         </Button>
-                        {!user.isLogged && (
+                        {!userIsLogged && (
                           <Button onClick={() => setSearchParams({ name: QueryParamKey.SIGN_UP, value: '1' })}>
                             <T>Sign up</T>
                           </Button>
