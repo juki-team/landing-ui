@@ -3,6 +3,7 @@
 import { FacebookIcon, T } from 'components';
 import { useJukiUI } from 'hooks';
 import Image from 'next/image';
+import { PRODUCTS } from '../../config/constants';
 
 export function Footer() {
   
@@ -23,40 +24,34 @@ export function Footer() {
             </div>
             <div className="jk-row cr-g3"> The home for competitive programmers</div>
             <div className="jk-row gap left pad-top">
-              <FacebookIcon />
-              <FacebookIcon />
+              <Link href="https://www.facebook.com/jukiApp/" target="_blank" className="link">
+                <FacebookIcon />
+              </Link>
             </div>
           </div>
-          
           <div className="jk-row stretch gap nowrap">
-            <div className="jk-col stretch top left jk-pad-lg flex-1">
-              <div className="jk-row left cr-pd fw-bd pad-bottom tt-ue tx-t">Juki Judge</div>
-              <div className="jk-row left jk-pg-sm-b"><T>Contests</T></div>
-              <div className="jk-row left jk-pg-sm-b"><T>Problems</T></div>
-              <div className="jk-row left jk-pg-sm-b"><T>Positions</T></div>
-            </div>
-            <div className="jk-col stretch top left jk-pad-lg flex-1">
-              <div className="jk-row left cr-pd fw-bd pad-bottom tt-ue tx-t">Juki Couch</div>
-              <div className="jk-row left jk-pg-sm-b"><T>Courses</T></div>
-              <div className="jk-row left jk-pg-sm-b"><T>Tasks</T></div>
-              <div className="jk-row left jk-pg-sm-b"><T>Teams</T></div>
-              <div className="jk-row left jk-pg-sm-b"><T>Schedules</T></div>
-            </div>
-            <div className="jk-col stretch top jk-pad-lg flex-1">
-              <div className="jk-row left cr-pd fw-bd pad-bottom tt-ue tx-t">Juki Utils</div>
-              <div className="jk-row left jk-pg-sm-b"><T>Codes</T></div>
-              <div className="jk-row left jk-pg-sm-b"><T>Documents</T></div>
-              <div className="jk-row left jk-pg-sm-b"><T>Board</T></div>
-              <div className="jk-row left jk-pg-sm-b"><T>Input test case generator</T></div>
-              <div className="jk-row left jk-pg-sm-b"><T>URL Shortener</T></div>
-            </div>
-            <div className="jk-col stretch top jk-pad-lg flex-1">
-              <div className="jk-row left cr-pd fw-bd pad-bottom tt-ue tx-t">Resources</div>
-              <div className="jk-row left jk-pg-sm-b"><T>Blog</T></div>
-              <div className="jk-row left jk-pg-sm-b"><T>News</T></div>
-              <div className="jk-row left jk-pg-sm-b"><T>About us</T></div>
-              <Link href="/policies/privacy-policy">
-                <div className="jk-row left jk-pg-sm-b"><T>Privacy policies</T></div>
+            {PRODUCTS.map(({ name, sections }) => (
+              <div className="jk-col stretch top left jk-pad-lg flex-1 gap">
+                <div className="jk-row left cr-pd fw-bd jk-pg-tb tt-ue tx-s">{name}</div>
+                {sections.map(({ name, url }) => (
+                  <Link href={url} target="_blank" className="link" key={name}>
+                    <div className="jk-row left">
+                      <T className="tt-se">{name}</T>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ))}
+            <div className="jk-col stretch top left jk-pad-lg flex-1 gap">
+              <div className="jk-row left cr-pd fw-bd jk-pg-tb tt-ue tx-s">Resources</div>
+              <Link href="/docs" className="link">
+                <div className="jk-row left"><T className="tt-se">docs</T></div>
+              </Link>
+              {/*<div className="jk-row left"><T>Blog</T></div>*/}
+              {/*<div className="jk-row left"><T>News</T></div>*/}
+              {/*<div className="jk-row left"><T>About us</T></div>*/}
+              <Link href="/policies/privacy-policy" className="link">
+                <div className="jk-row left"><T className="tt-se">privacy policies</T></div>
               </Link>
             </div>
           </div>

@@ -1,0 +1,21 @@
+'use client';
+
+import { FetcherLayer } from 'components';
+import { jukiApiSocketManager } from 'config';
+import { ContentResponseType, WorksheetDataResponseDTO } from 'types';
+import { DocsPage } from './DocsPage';
+
+const DOCS_WORKSHEET_KEY = 'w-NZ3';
+
+export default function Page() {
+  
+  return (
+    <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
+      url={jukiApiSocketManager.API_V1.worksheet.getData({ params: { key: DOCS_WORKSHEET_KEY } }).url}
+    >
+      {({ data }) => (
+        <DocsPage worksheet={data.content} />
+      )}
+    </FetcherLayer>
+  );
+};

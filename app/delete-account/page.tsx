@@ -25,21 +25,21 @@ const Page = () => {
         <form className="jk-col stretch">
           <div className="jk-col gap jk-pg-lg">
             <Input
-              extend
+              expand
               required
               label={<T className="tt-se">name</T>}
               value={name}
               onChange={setName}
             />
             <Input
-              extend
+              expand
               required
               label={<T className="tt-se">email</T>}
               value={email}
               onChange={setEmail}
             />
             <InputTextArea
-              extend
+              expand
               label={<T className="tt-se">reason for request</T>}
               value={reason}
               onChange={setReason}

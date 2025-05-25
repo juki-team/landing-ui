@@ -1,29 +1,16 @@
 'use client';
 
-import {
-  Button,
-  FacebookIcon,
-  Footer,
-  GmailIcon,
-  JukiCompleteLaptopImage,
-  MainMenu,
-  PlayCircleIcon,
-  ProductSlide,
-  ProductsMenu,
-  T,
-  TelegramIcon,
-} from 'components';
-import { ExpandMoreIcon, Popover } from 'components/index';
-import { useJukiUI, useSearchParams, useUserStore } from 'hooks';
+import { Button, Footer, JukiCompleteLaptopImage, PlayCircleIcon, ProductSlide, T } from 'components';
+import { useJukiUI, useRouterStore, useSearchParams, useUserStore } from 'hooks';
 import Head from 'next/head';
-import Image from 'next/image';
 import React from 'react';
-import { MenuViewMode, QueryParamKey, Theme } from 'types';
-import mockup_1 from '../public/mockup_1.svg';
+import { QueryParamKey } from 'types';
+import { PRODUCTS } from '../config/constants';
 import { Language, ProfileSetting } from '../types';
 
 export function Home() {
   
+  const pathname = useRouterStore(state => state.pathname);
   const userPreferredTheme = useUserStore(state => state.user.settings[ProfileSetting.THEME]);
   const userPreferredLanguage = useUserStore(state => state.user.settings[ProfileSetting.LANGUAGE]);
   const userIsLogged = useUserStore(state => state.user.isLogged);
@@ -38,352 +25,223 @@ export function Home() {
         <meta name="description" content="Juki App" />
         <link rel="icon" href="/juki-head-ico.png" />
       </Head>
-      <MainMenu
-        onSeeMyProfile={() => {
-        }}
-        menu={[
-          {
-            icon: null,
-            label: <div className="jk-row fw-bd tx-m"><T>products</T><ExpandMoreIcon /></div>,
-            selected: false,
-            menuItemWrapper: ({ children }) => (
-              <Popover
-                content={<ProductsMenu />}
-                placement="bottom-start"
-                offset={4}
-              >
-                <div>{children}</div>
-              </Popover>
-            ),
-          },
-          // {
-          //   icon: <ArticleIcon />,
-          //   label: <T>news</T>,
-          //   selected: false,
-          //   menuItemWrapper: ({ children }) => (
-          //     <div className="cr-pd">{children}</div>
-          //   ),
-          // },
-          // {
-          //   icon: <ArticleIcon />,
-          //   label: <T>blog</T>,
-          //   selected: false,
-          //   menuItemWrapper: ({ children }) => (
-          //     <div className="cr-pd">{children}</div>
-          //   ),
-          // },
-          // {
-          //   icon: <ArticleIcon />,
-          //   label: <T>about us</T>,
-          //   selected: false,
-          //   menuItemWrapper: ({ children }) => (
-          //     <div className="cr-pd">{children}</div>
-          //   ),
-          // },
-        ]}
-        menuViewMode={MenuViewMode.HORIZONTAL}
-        moreApps={
-          <>
-            <Link href="https://judge.juki.app">
-              <div className="jk-row gap left">
-                <Image
-                  width={100}
-                  height={50}
-                  src={`https://images.juki.pub/assets/juki-judge-horizontal-${userPreferredTheme === Theme.DARK ? 'white' : 'color'}-logo.png`}
-                  alt="juki judge"
-                />
-                <div className="link">judge.juki.app</div>
-              </div>
-            </Link>
-            <Link href="https://utils.juki.app">
-              <div className="jk-row gap left">
-                <Image
-                  width={100}
-                  height={50}
-                  src={`https://images.juki.pub/assets/juki-utils-horizontal-${userPreferredTheme === Theme.DARK ? 'white' : 'color'}-logo.png`}
-                  alt="juki utils"
-                />
-                <div className="link">utils.juki.app</div>
-              </div>
-            </Link>
-            <Link href="https://coach.juki.app">
-              <div className="jk-row gap left">
-                <Image
-                  width={100}
-                  height={50}
-                  src={`https://images.juki.pub/assets/juki-coach-horizontal-${userPreferredTheme === Theme.DARK ? 'white' : 'color'}-logo.png`}
-                  alt="juki coach"
-                />
-                <div className="jk-row nowrap" style={{ alignItems: 'baseline' }}>
-                  <T className="link">coach.juki.app</T>
-                </div>
-              </div>
-            </Link>
-          </>
-        }
-      >
-        <div className="jk-col top nowrap stretch" style={{ overflowY: 'scroll', maxHeight: '100%' }}>
-          <div className="jk-col nowrap">
-            <div className="jk-row extend">
-              <div className="jk-col gap bc-w2 jk-pg-lg" style={{ width: 'var(--modal-width-md)' }}>
-                <div className="jk-row extend">
-                  <div className="jk-col gap flex-1 jk-pg-lg">
-                    <div className="jk-col">
-                      <h1>
-                        {
-                          isEs ?
-                            (<>El < span className="cr-at">hogar</span> para <span className="fw-bd">programadores</span>
-                              <span className="fw-bd cr-py">competitivos</span></>) :
-                            (<>The < span className="cr-at">home</span> for <span className="fw-bd">competitive</span>
-                              <span
-                                className="fw-bd cr-py"
-                              >programmers</span></>)
-                        }
-                      </h1>
-                      <p className="tx-h cr-g3 pad-top-bottom">
-                        <T>
-                          Juki is an advanced platform designed to enhance programming skills. With its comprehensive
-                          resources and interactive coding exercises, Juki provides an immersive environment for
-                          individuals
-                          to continuously develop and grow their programming expertise
-                        </T>
-                      </p>
-                    </div>
-                    <div className="jk-row left extend gap">
-                      <div className="jk-row gap">
-                        <Button icon={<PlayCircleIcon />}>
-                          <T>Demo</T>
-                        </Button>
-                        {!userIsLogged && (
-                          <Button onClick={() => setSearchParams({ name: QueryParamKey.SIGN_UP, value: '1' })}>
-                            <T>Sign up</T>
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="jk-row flex-1">
-                    <div className="jk-row jk-pad-lg"><JukiCompleteLaptopImage /></div>
-                  </div>
-                </div>
-                
-                <div
-                  className="jk-row center fw-nl pad-top-bottom"
-                  style={{ width: 'calc(var(--modal-width-md) - 6 * var(--screen-col-width))' }}
-                >
-                  {isEs ?
-                    <p className="tx-h cr-g3 ta-cr">
-                      Hemos desarrollado tres productos
-                      clave: <span className="cr-py">Juki Judge</span>, <span className="cr-py">Juki Couch</span> y <span
-                      className="cr-py"
-                    >Juki Utils</span>. Estos productos están diseñados meticulosamente para ofrecer a los usuarios una
-                      experiencia integral de aprendizaje en programación. Cada producto está adaptado para satisfacer
-                      diferentes necesidades, asegurando que los usuarios puedan mejorar sus habilidades de programación
-                      de
-                      manera integral
-                    </p> :
-                    <p className="tx-h cr-g3 ta-cr">
-                      We have developed three key
-                      products: <span className="cr-py">Juki Judge</span>, <span className="cr-py">Juki Couch</span>,
-                      and <span className="cr-py">Juki Utils</span>. These products are meticulously designed to offer
-                      users
-                      a comprehensive learning experience in programming. Each product is tailored to meet different
-                      needs,
-                      ensuring that users can enhance their programming skills in a holistic manner
+      <div className="jk-col top nowrap stretch" style={{ overflowY: 'scroll', maxHeight: '100%' }}>
+        <div className="jk-col nowrap">
+          <div className="jk-row extend">
+            <div className="jk-col gap bc-w2 jk-pg-lg" style={{ width: 'var(--modal-width-md)' }}>
+              <div className="jk-row extend">
+                <div className="jk-col gap flex-1 jk-pg-lg">
+                  <div className="jk-col">
+                    <h1>
+                      {
+                        isEs ?
+                          (<>El < span className="cr-at">hogar</span> para <span className="fw-bd">programadores</span>
+                            <span className="fw-bd cr-py">competitivos</span></>) :
+                          (<>The < span className="cr-at">home</span> for <span className="fw-bd">competitive</span>
+                            <span
+                              className="fw-bd cr-py"
+                            >programmers</span></>)
+                      }
+                    </h1>
+                    <p className="tx-h cr-g3 pad-top-bottom">
+                      <T>
+                        Juki is an advanced platform designed to enhance programming skills. With its comprehensive
+                        resources and interactive coding exercises, Juki provides an immersive environment for
+                        individuals
+                        to continuously develop and grow their programming expertise
+                      </T>
                     </p>
-                  }
-                
+                  </div>
+                  <div className="jk-row left extend gap">
+                    <div className="jk-row gap">
+                      <Button icon={<PlayCircleIcon />}>
+                        <T>Demo</T>
+                      </Button>
+                      {!userIsLogged && (
+                        <Button onClick={() => setSearchParams({ name: QueryParamKey.SIGN_UP, value: '1' })}>
+                          <T>Sign up</T>
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="jk-row flex-1">
+                  <div className="jk-row jk-pad-lg"><JukiCompleteLaptopImage /></div>
                 </div>
               </div>
-            
-            </div>
-            
-            {
-              /*
-            <ProductSlide
-              name="Juki Judge"
-              description="Con Juki Judge, los programadores pueden competir con otros usuarios en línea y comparar sus resultados para motivarse a seguir mejorando."
-              logoUrl="https://images.juki.pub/c/juki-judge-logo-horizontal-color.svg"
-              sections={[
-                {
-                  name: 'Concursos',
-                  description: 'Para participar en un concurso de programacion en Juki Judge, los programadores deben registrarse en la plataforma y elegir el concurso en el que desean participar. Una vez que el concurso comienza, los programadores tienen un tiempo limitado para resolver los problemas de programacion utilizando un editor de codigo en linea',
-                  image: mockup_1,
-                },
-                {
-                  name: 'Problemas',
-                  description: '',
-                  image: mockup_1,
-                },
-                {
-                  name: 'Posiciones',
-                  description: '',
-                  image: mockup_1,
-                },
-              ]}
-              urlDescription="Explora Juki Judge"
-            />  */
-              products.map((product, index) => (
-                <ProductSlide
-                  key={index}
-                  name={product.name}
-                  description={product.description}
-                  logoUrl={product.logoUrl}
-                  sections={product.sections}
-                  url={product.url}
-                  urlDescription={product.urlDescription}
-                  even={index % 2 === 0}
-                />
-              ))
               
-            }
-            
-            {/*<div className="jk-row extend nowrap">*/}
-            {/*  <div className="jk-col bc-w2 jk-pg-t" style={{ width: 'var(--modal-width-md)' }}>*/}
-            {/*    <div*/}
-            {/*      className="jk-row jk-pg-t"*/}
-            {/*      style={{ width: 'calc(var(--modal-width-md) - 4 * var(--screen-col-width))' }}*/}
-            {/*    >*/}
-            {/*      <h2 className="ta-cr">*/}
-            {/*    <span className="cr-bk fw-bd">*/}
-            {/*      Unete a la comunidad hoy y comienza a mejorar tus habilidades en programacion*/}
-            {/*    </span>*/}
-            {/*      </h2>*/}
-            {/*    </div>*/}
-            {/*    <div*/}
-            {/*      className="jk-row jk-pg-tb"*/}
-            {/*      style={{ width: 'calc(var(--modal-width-md) - 4 * var(--screen-col-width))' }}*/}
-            {/*    ><p className="tx-h ta-cr cr-g3">Juki es una plataforma diseñada para ayudar a las personas a mejorar*/}
-            {/*      sus*/}
-            {/*      habilidades de programacion y alcanzar sus objetivos de carrera.</p></div>*/}
-            {/*    <div className="jk-row jk-pg-lg">*/}
-            {/*      <div className="jk-row jk-pg-lg bc-we jk-border-radius nowrap elevation-2">*/}
-            {/*        <div className="jk-col flex-1">*/}
-            {/*          <h1><span className="cr-sy fw-bd" style={{ fontSize: '45px' }}>10K+</span></h1>*/}
-            {/*          <p className="fw-bd ta-cr">Miembros de la comunidad agregados cada mes</p>*/}
-            {/*        </div>*/}
-            {/*        <div className="jk-col flex-1">*/}
-            {/*          <h1><span className="cr-py fw-bd" style={{ fontSize: '45px' }}>5K+</span></h1>*/}
-            {/*          <p className="fw-bd ta-cr">Problemas resueltos cada mes</p>*/}
-            {/*        </div>*/}
-            {/*        <div className="jk-col flex-1">*/}
-            {/*          <h1><span className="cr-ss fw-bd" style={{ fontSize: '45px' }}>1k+</span></h1>*/}
-            {/*          <p className="fw-bd ta-cr">Problemas resueltos cada mes</p>*/}
-            {/*        </div>*/}
-            {/*      </div>*/}
-            {/*    </div>*/}
-            {/*  </div>*/}
-            {/*</div>*/}
-            
-            {/*<div className="jk-row extend bc-we">*/}
-            {/*  <div className="jk-col nowrap" style={{ width: 'var(--modal-width-md)' }}>*/}
-            {/*    <div className="jk-row jk-pg-t"><h1><span className="cr-py fw-bd">Comunidad</span></h1></div>*/}
-            {/*    <div className="jk-row extend gap jk-pg-lg nowrap">*/}
-            {/*      <div*/}
-            {/*        className="jk-col jk-pg-lg jk-border-radius elevation-3"*/}
-            {/*        style={{ width: 'calc(var(--modal-width-md) - 9 * var(--screen-col-width))' }}*/}
-            {/*      >*/}
-            {/*        <div className="jk-row extend center jk-pg-t"><h3>Blog</h3></div>*/}
-            {/*        <div className="jk-pg-sm ta-cr"><p className="cr-g3">Accede a nuestra seccion de noticias donde*/}
-            {/*          podra*/}
-            {/*          encontrar informacion actualizada de nuestras actividades</p></div>*/}
-            {/*        <div className="jk-row extend" style={{ position: 'relative', height: '200px' }}><Image*/}
-            {/*          src={blogs} alt="Juki Logo" fill style={{ objectFit: 'contain' }}*/}
-            {/*        /></div>*/}
-            {/*        <a>*/}
-            {/*          <div className="jk-row jk-pg-lg">Ir al blog <NavigateNextIcon /></div>*/}
-            {/*        </a>*/}
-            {/*      </div>*/}
-            {/*      */}
-            {/*      <div*/}
-            {/*        className="jk-col jk-pg-lg jk-border-radius elevation-3"*/}
-            {/*        style={{ width: 'calc(var(--modal-width-md) - 9 * var(--screen-col-width))' }}*/}
-            {/*      >*/}
-            {/*        <div className="jk-row extend center jk-pg-t"><h3>Novedades</h3></div>*/}
-            {/*        <div className="jk-pg-sm ta-cr"><p className="cr-g3">Accede a nuestra seccion de noticias donde*/}
-            {/*          podra*/}
-            {/*          encontrar informacion actualizada de nuestras actividades</p></div>*/}
-            {/*        <div className="jk-row extend" style={{ position: 'relative', height: '200px' }}><Image*/}
-            {/*          src={novedades} alt="Juki Logo" fill style={{ objectFit: 'contain' }}*/}
-            {/*        /></div>*/}
-            {/*        <a>*/}
-            {/*          <div className="jk-row jk-pg-lg">Ir a las novedades <NavigateNextIcon /></div>*/}
-            {/*        </a>*/}
-            {/*      </div>*/}
-            {/*    </div>*/}
-            {/*  </div>*/}
-            {/*</div>*/}
-            
-            <div className="jk-row extend">
-              <div className="jk-col bc-w2" style={{ width: 'var(--modal-width-md)' }}>
-                <div className="jk-row jk-pg-t"><h1><span className="cr-py fw-bd">Conoce a nuestro equipo</span></h1>
-                </div>
-                <div className="jk-row jk-pg-lg"><p className="tx-h ta-cr cr-g3" style={{ width: '70%' }}>Nuestra
-                  filosofia
-                  es simple: contrate un equipo de personas diversas y apasionadas y forme una cultura que lo capacite
-                  para
-                  hacer su mejor trabajo</p></div>
-                <div className="jk-row jk-pg-lg">
-                  {/* <div className="jk-col jk-pad-lg">
-                <Image src="https://images.juki.pub/c/juki-head.svg" className="jk-user-profile-img huge elevation-1 bc-we" alt="Juki team" width={150} height={150} style={{ width: "150px", height: "150px" }} />
-                <span className="tx-l fw-bd">Juan Perez</span>
-                <span className="cr-py">Fundador & CEO</span>
-                <span>Lider, Fundador y formador de Juki.</span>
-                <span>Personal inicial en Juki</span>
-                <div className="jk-row gap"><FacebookIcon /><TelegramIcon /></div>
-              </div>
-
-              <div className="jk-col jk-pad-lg">
-                <Image src="https://images.juki.pub/c/juki-head.svg" className="jk-user-profile-img huge elevation-1 bc-we" alt="Juki team" width={150} height={150} style={{ width: "150px", height: "150px" }} />
-                <span className="tx-l fw-bd">Juan Perez</span>
-                <span className="cr-py">Fundador & CEO</span>
-                <span>Lider, Fundador y formador de Juki.</span>
-                <span>Personal inicial en Juki</span>
-                <div className="jk-row gap"><FacebookIcon /><TelegramIcon /></div>
-              </div>
-
-              <div className="jk-col jk-pad-lg">
-                <Image src="https://images.juki.pub/c/juki-head.svg" className="jk-user-profile-img huge elevation-1 bc-we" alt="Juki team" width={150} height={150} style={{ width: "150px", height: "150px" }} />
-                <span className="tx-l fw-bd">Juan Perez</span>
-                <span className="cr-py">Fundador & CEO</span>
-                <span>Lider, Fundador y formador de Juki.</span>
-                <span>Personal inicial en Juki</span>
-                <div className="jk-row gap"><FacebookIcon /><TelegramIcon /></div>
-              </div> */}
-                  {
-                    jukiTeam.map((member, index) => (
-                      <div key={index} className="jk-col jk-pg-lg">
-                        <Image
-                          src={member.image} className="jk-user-profile-img huge elevation-1 bc-we" alt="Juki team"
-                          width={150} height={150} style={{ width: '150px', height: '150px' }}
-                        />
-                        <span className="tx-l fw-bd">{member.name}</span>
-                        <span className="cr-py">{member.title}</span>
-                        <span>{member.roles.join(', ')}</span>
-                        <span>{member.description}</span>
-                        <div className="jk-row gap">
-                          {member.socialMedia.map((socialMedia, index) => (
-                            <Link key={index} href={socialMedia.url} target="_blank">{
-                              (() => {
-                                if (socialMedia.name === 'Facebook') return (<FacebookIcon />);
-                                if (socialMedia.name === 'Telegram') return (<TelegramIcon />);
-                                if (socialMedia.name === 'Gmail') return (<GmailIcon />);
-                              })()
-                            }</Link>
-                          ))}
-                        </div>
-                      </div>
-                    ))
-                    
-                  }
-                </div>
+              <div
+                className="jk-row center fw-nl pad-top-bottom"
+                style={{ width: 'calc(var(--modal-width-md) - 6 * var(--screen-col-width))' }}
+              >
+                {isEs ?
+                  <p className="tx-h cr-g3 ta-cr">
+                    Hemos desarrollado tres productos
+                    clave: <span className="cr-py">Juki Judge</span>, <span className="cr-py">Juki Couch</span> y <span
+                    className="cr-py"
+                  >Juki Utils</span>. Estos productos están diseñados meticulosamente para ofrecer a los usuarios una
+                    experiencia integral de aprendizaje en programación. Cada producto está adaptado para satisfacer
+                    diferentes necesidades, asegurando que los usuarios puedan mejorar sus habilidades de programación
+                    de
+                    manera integral
+                  </p> :
+                  <p className="tx-h cr-g3 ta-cr">
+                    We have developed three key
+                    products: <span className="cr-py">Juki Judge</span>, <span className="cr-py">Juki Couch</span>,
+                    and <span className="cr-py">Juki Utils</span>. These products are meticulously designed to offer
+                    users
+                    a comprehensive learning experience in programming. Each product is tailored to meet different
+                    needs,
+                    ensuring that users can enhance their programming skills in a holistic manner
+                  </p>
+                }
               </div>
             </div>
-            
-            <Footer />
           </div>
+          {PRODUCTS.map((product, index) => (
+            <ProductSlide
+              key={index}
+              {...product}
+              even={index % 2 === 0}
+            />
+          ))}
+          
+          {/*<div className="jk-row extend nowrap">*/}
+          {/*  <div className="jk-col bc-w2 jk-pg-t" style={{ width: 'var(--modal-width-md)' }}>*/}
+          {/*    <div*/}
+          {/*      className="jk-row jk-pg-t"*/}
+          {/*      style={{ width: 'calc(var(--modal-width-md) - 4 * var(--screen-col-width))' }}*/}
+          {/*    >*/}
+          {/*      <h2 className="ta-cr">*/}
+          {/*    <span className="cr-bk fw-bd">*/}
+          {/*      Unete a la comunidad hoy y comienza a mejorar tus habilidades en programacion*/}
+          {/*    </span>*/}
+          {/*      </h2>*/}
+          {/*    </div>*/}
+          {/*    <div*/}
+          {/*      className="jk-row jk-pg-tb"*/}
+          {/*      style={{ width: 'calc(var(--modal-width-md) - 4 * var(--screen-col-width))' }}*/}
+          {/*    ><p className="tx-h ta-cr cr-g3">Juki es una plataforma diseñada para ayudar a las personas a mejorar*/}
+          {/*      sus*/}
+          {/*      habilidades de programacion y alcanzar sus objetivos de carrera.</p></div>*/}
+          {/*    <div className="jk-row jk-pg-lg">*/}
+          {/*      <div className="jk-row jk-pg-lg bc-we jk-border-radius nowrap elevation-2">*/}
+          {/*        <div className="jk-col flex-1">*/}
+          {/*          <h1><span className="cr-sy fw-bd" style={{ fontSize: '45px' }}>10K+</span></h1>*/}
+          {/*          <p className="fw-bd ta-cr">Miembros de la comunidad agregados cada mes</p>*/}
+          {/*        </div>*/}
+          {/*        <div className="jk-col flex-1">*/}
+          {/*          <h1><span className="cr-py fw-bd" style={{ fontSize: '45px' }}>5K+</span></h1>*/}
+          {/*          <p className="fw-bd ta-cr">Problemas resueltos cada mes</p>*/}
+          {/*        </div>*/}
+          {/*        <div className="jk-col flex-1">*/}
+          {/*          <h1><span className="cr-ss fw-bd" style={{ fontSize: '45px' }}>1k+</span></h1>*/}
+          {/*          <p className="fw-bd ta-cr">Problemas resueltos cada mes</p>*/}
+          {/*        </div>*/}
+          {/*      </div>*/}
+          {/*    </div>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
+          
+          {/*<div className="jk-row extend bc-we">*/}
+          {/*  <div className="jk-col nowrap" style={{ width: 'var(--modal-width-md)' }}>*/}
+          {/*    <div className="jk-row jk-pg-t"><h1><span className="cr-py fw-bd">Comunidad</span></h1></div>*/}
+          {/*    <div className="jk-row extend gap jk-pg-lg nowrap">*/}
+          {/*      <div*/}
+          {/*        className="jk-col jk-pg-lg jk-border-radius elevation-3"*/}
+          {/*        style={{ width: 'calc(var(--modal-width-md) - 9 * var(--screen-col-width))' }}*/}
+          {/*      >*/}
+          {/*        <div className="jk-row extend center jk-pg-t"><h3>Blog</h3></div>*/}
+          {/*        <div className="jk-pg-sm ta-cr"><p className="cr-g3">Accede a nuestra seccion de noticias donde*/}
+          {/*          podra*/}
+          {/*          encontrar informacion actualizada de nuestras actividades</p></div>*/}
+          {/*        <div className="jk-row extend" style={{ position: 'relative', height: '200px' }}><Image*/}
+          {/*          src={blogs} alt="Juki Logo" fill style={{ objectFit: 'contain' }}*/}
+          {/*        /></div>*/}
+          {/*        <a>*/}
+          {/*          <div className="jk-row jk-pg-lg">Ir al blog <NavigateNextIcon /></div>*/}
+          {/*        </a>*/}
+          {/*      </div>*/}
+          {/*      */}
+          {/*      <div*/}
+          {/*        className="jk-col jk-pg-lg jk-border-radius elevation-3"*/}
+          {/*        style={{ width: 'calc(var(--modal-width-md) - 9 * var(--screen-col-width))' }}*/}
+          {/*      >*/}
+          {/*        <div className="jk-row extend center jk-pg-t"><h3>Novedades</h3></div>*/}
+          {/*        <div className="jk-pg-sm ta-cr"><p className="cr-g3">Accede a nuestra seccion de noticias donde*/}
+          {/*          podra*/}
+          {/*          encontrar informacion actualizada de nuestras actividades</p></div>*/}
+          {/*        <div className="jk-row extend" style={{ position: 'relative', height: '200px' }}><Image*/}
+          {/*          src={novedades} alt="Juki Logo" fill style={{ objectFit: 'contain' }}*/}
+          {/*        /></div>*/}
+          {/*        <a>*/}
+          {/*          <div className="jk-row jk-pg-lg">Ir a las novedades <NavigateNextIcon /></div>*/}
+          {/*        </a>*/}
+          {/*      </div>*/}
+          {/*    </div>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
+          {/*<div className="jk-row extend">*/}
+          {/*  <div className="jk-col bc-w2" style={{ width: 'var(--modal-width-md)' }}>*/}
+          {/*    <div className="jk-row jk-pg-t"><h1><span className="cr-py fw-bd">Conoce a nuestro equipo</span></h1>*/}
+          {/*    </div>*/}
+          {/*    <div className="jk-row jk-pg-lg">*/}
+          {/*      <p className="tx-h ta-cr cr-g3" style={{ width: '70%' }}>*/}
+          {/*        Nuestra filosofia es simple: contrate un equipo de personas diversas y apasionadas y forme una*/}
+          {/*        cultura que lo capacite para hacer su mejor trabajo*/}
+          {/*      </p>*/}
+          {/*    </div>*/}
+          {/*    <div className="jk-row jk-pg-lg">*/}
+          {/*      {jukiTeam.map((member, index) => (*/}
+          {/*        <div key={index} className="jk-col jk-pg-lg">*/}
+          {/*          <Image*/}
+          {/*            src={member.image} className="jk-user-profile-img huge elevation-1 bc-we" alt="Juki team"*/}
+          {/*            width={150} height={150} style={{ width: '150px', height: '150px' }}*/}
+          {/*          />*/}
+          {/*          <span className="tx-l fw-bd">{member.name}</span>*/}
+          {/*          <span className="cr-py">{member.title}</span>*/}
+          {/*          <span>{member.roles.join(', ')}</span>*/}
+          {/*          <span>{member.description}</span>*/}
+          {/*          <div className="jk-row gap">*/}
+          {/*            {member.socialMedia.map((socialMedia, index) => (*/}
+          {/*              <Link key={index} href={socialMedia.url} target="_blank">{*/}
+          {/*                (() => {*/}
+          {/*                  if (socialMedia.name === 'Facebook') return (<FacebookIcon />);*/}
+          {/*                  if (socialMedia.name === 'Telegram') return (<TelegramIcon />);*/}
+          {/*                  if (socialMedia.name === 'Gmail') return (<GmailIcon />);*/}
+          {/*                })()*/}
+          {/*              }</Link>*/}
+          {/*            ))}*/}
+          {/*          </div>*/}
+          {/*        </div>*/}
+          {/*      ))}*/}
+          {/*    </div>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
+          <div className="jk-col gap tx-l jk-pg-tb">
+            <h1><T className="tt-se">join our community on Telegram</T></h1>
+            <T className="tt-se">
+              do you have questions, suggestions, or just want to stay up to date with the latest
+              news from Juki Judge, Juki Coach, and Juki Utils?
+            </T>
+            <T>join our community on Telegram and join the conversation!</T>
+            <Link href="https://t.me/+eeKOzxKT0cM4YzMx" className="link jk-col" target="_blank">
+              👉 <T className="tt-se fw-bd">go to the Telegram group</T>
+              <ul>
+                <li>
+                  <T className="tt-se">news, updates, training tips, and much more.</T>
+                </li>
+                <li>
+                  <T className="tt-se">
+                    connect with students, coaches, and competitive programming enthusiasts like you.
+                  </T>
+                </li>
+              </ul>
+            </Link>
+          </div>
+          <Footer />
         </div>
-      </MainMenu>
+      </div>
     </>
   );
 }
@@ -534,54 +392,24 @@ const jukiTeam = [
 */
 
 const products = [
+  
   {
-    name: 'Juki Judge',
-    description: 'With Juki Judge, programmers have the ability to engage in online competitions with fellow users, enabling them to benchmark their skills and derive motivation for continuous improvement. By comparing results and striving for better outcomes, Juki Judge inspires programmers to elevate their abilities and strive for excellence in their craft.',
-    logoUrl: 'https://images.juki.pub/c/juki-judge-logo-horizontal-color.svg',
-    sections: [
-      {
-        name: 'Contests',
-        description: 'Juki Judge offers an exciting and dynamic contest feature that allows programmers to showcase their skills, compete with peers, and challenge themselves in a stimulating environment. The contest section of Juki Judge provides a platform for programmers to participate in coding battles, putting their abilities to the test.',
-        image: mockup_1,
-      },
-      {
-        name: 'Problems',
-        description: 'Juki Judge presents a vast collection of carefully curated programming problems, designed to challenge and engage programmers of all levels. The problems section provides an extensive library of coding exercises and algorithmic puzzles, covering various domains of computer science and programming languages.',
-        image: mockup_1,
-      },
-      {
-        name: 'Positions',
-        description: 'Juki Judge recognizes and celebrates the achievements of programmers through its positions system. The positions section showcases the rankings and accomplishments of users based on their performance in contests and problem-solving activities. By participating in contests and solving problems on Juki Judge, users can earn points and climb up the positions leaderboard. The positions are based on factors such as contest rankings, problem-solving proficiency, and overall contributions to the Juki Judge community.',
-        image: mockup_1,
-      },
-    ],
-    url: 'https://judge.juki.app',
-    urlDescription: 'Explore Juki Judge',
-  },
-  {
-    name: 'Juki Couch',
-    description: 'Juki Coach is a transformative tool designed to empower programmers at every stage of their coding journey. Whether you\'re a beginner taking your first steps or an experienced developer looking to enhance your skills, Juki Coach is here to guide and support you along the way. With its comprehensive resources, personalized learning paths, and expert guidance, Juki Coach is your trusted companion in mastering programming concepts and advancing your coding proficiency. Embark on a transformative learning experience and unleash your full programming potential with Juki Coach',
     logoUrl: 'https://images.juki.pub/c/juki-judge-logo-horizontal-color.svg',
     sections: [
       {
         name: 'Courses',
-        description: 'Juki Coach offers a comprehensive selection of curated programming courses designed to cater to learners of all levels. These courses cover various programming languages, frameworks, and concepts, providing a structured and guided approach to learning. From introductory courses for beginners to advanced topics for experienced programmers, Juki Coach offers a diverse range of courses to suit different learning goals. Each course features engaging lessons, practical examples, and interactive exercises, ensuring a dynamic and immersive learning experience. With Juki Coach\'s courses, learners can acquire new skills, expand their knowledge, and stay up-to-date with the latest trends in programming.',
-        image: mockup_1,
       },
       {
         name: 'Tasks',
         description: 'Juki Coach presents a collection of hands-on coding tasks that allow learners to apply their knowledge and practice their programming skills. These tasks are designed to reinforce the concepts learned in courses and provide real-world scenarios for learners to tackle. Each task is accompanied by clear instructions, sample inputs, and expected outputs, enabling learners to solve problems using their programming expertise. By completing tasks in Juki Coach, learners gain valuable practical experience, build their problem-solving abilities, and become more confident in their coding abilities.',
-        image: mockup_1,
       },
       {
         name: 'Teams',
         description: 'Juki Coach provides an avenue for collaboration and teamwork among learners. Users can form teams, join existing teams, or participate in team-based projects to work collectively on coding challenges and projects. The teams section encourages knowledge sharing, peer-to-peer support, and fosters a sense of community among learners. By collaborating with fellow programmers, learners can leverage diverse perspectives, enhance their communication skills, and gain insights from different approaches to problem-solving. The teams section in Juki Coach promotes a cooperative learning environment where learners can grow together and collectively achieve their programming goals.',
-        image: mockup_1,
       },
       {
         name: 'Schedules',
         description: 'Juki Coach helps learners organize and plan their learning journey effectively. Users can create personalized schedules, set learning goals, and track their progress over time. The schedules section allows learners to allocate dedicated time for studying courses, completing tasks, and engaging in team activities. By managing their schedules in Juki Coach, learners can maintain a structured approach to learning, stay motivated, and make steady progress towards their programming aspirations. The schedules section empowers learners to take control of their learning experience and optimize their time for efficient skill development.',
-        image: mockup_1,
       },
     ],
     url: 'https://coach.juki.app',
@@ -589,33 +417,24 @@ const products = [
   },
   {
     name: 'Juki Utils',
-    description: 'Juki Utils is a game-changing toolkit designed to optimize your programming process. From powerful code snippets to time-saving utilities, Juki Utils equips you with the tools you need to boost efficiency and unlock new levels of productivity. Simplify complex tasks, automate repetitive actions, and accelerate your coding endeavors with Juki Utils. Experience a seamless and efficient programming workflow like never before',
-    logoUrl: 'https://images.juki.pub/c/juki-judge-logo-horizontal-color.svg',
     sections: [
       {
         name: 'Codes',
         description: 'Juki Utils provides a centralized and organized repository for storing and managing your code snippets. With an intuitive interface and powerful search functionality, you can easily access and retrieve your code snippets whenever you need them. Keep your code snippets organized, share them with others, and collaborate seamlessly with team members. The codes section in Juki Utils simplifies code management and accelerates your development process.',
-        image: mockup_1,
       },
       {
         name: 'Documents',
         description: 'Juki Utils offers a convenient space for creating, storing, and accessing your programming-related documents. Whether you need to write technical specifications, documentation, or project notes, Juki Utils provides a user-friendly editor with formatting options. Keep your documents organized, collaborate with others, and ensure seamless documentation for your projects. The documents section in Juki Utils enhances your productivity and facilitates efficient information sharing.',
-        image: mockup_1,
       },
       {
         name: 'Board',
         description: 'Juki Utils serves as a collaborative space for team communication and project management. Create boards, add tasks, assign responsibilities, and track progress all in one place. Visualize your project\'s workflow, discuss ideas, and stay aligned with your team members. The board section in Juki Utils streamlines communication, enhances collaboration, and ensures effective project coordination.',
-        image: mockup_1,
       },
       {
         name: 'Input test case generator',
-        description: 'Juki Utils simplifies the process of generating input test cases for your programs. With customizable options, you can quickly create a variety of test cases to validate your code\'s functionality. Specify input constraints, generate multiple test cases at once, and ensure thorough testing of your programs. The input test case generator in Juki Utils saves time, improves testing efficiency, and helps you deliver robust and error-free code.',
-        image: mockup_1,
       },
       {
         name: 'URL Shortener',
-        description: 'Juki Utils provides a convenient way to shorten long URLs and make them more manageable. Simply enter a lengthy URL, and Juki Utils will generate a short and shareable link. Whether you need to share URLs in emails, social media posts, or any other platform, the URL shortener in Juki Utils simplifies the process. Easily track the number of clicks and monitor the performance of your shortened links. The URL shortener in Juki Utils enhances link management and improves user experience.',
-        image: mockup_1,
       },
     ],
     url: 'https://utils.juki.app',

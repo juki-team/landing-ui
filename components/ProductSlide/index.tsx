@@ -1,24 +1,33 @@
 'use client';
 
 import { ArrowBackIcon, ArrowForwardIcon, Button, NavigateNextIcon, T } from 'components';
-import Image from 'next/image';
 import { useState } from 'react';
+import { PRODUCTS } from '../../config/constants';
 import { useJukiUI } from '../../hooks';
 
-export const ProductSlide = ({ name, description, logoUrl, sections, url, urlDescription, even }: any) => {
+type ProductType = typeof PRODUCTS[number]
+
+export const ProductSlide = ({ name, description, logoUrl, sections, url, urlDescription, even }: ProductType & {
+  even: boolean
+}) => {
   
   const [ currentSection, setCurrentSection ] = useState(0);
-  const { components: { Link } } = useJukiUI();
+  const { components: { Link, Image }, viewPortWidth } = useJukiUI();
   
   const contentParagraph = (name: string, description: string) => {
     const descriptionArray = description.split(name);
     const descriptionParagraph = descriptionArray.map((item, index) => {
       if (index === descriptionArray.length - 1) {
-        return <span key={index}>{item}</span>;
+        return <T key={item}>{item}</T>;
       }
-      return <span key={index}>{item}<span className="cr-py">{name}</span></span>;
+      return (
+        <>
+          <T key={item}>{item}</T>
+          <span className="cr-py fw-bd" key={index}>{name}</span>
+        </>
+      );
     });
-    return <p className="tx-l cr-g3 fw-bd">{descriptionParagraph}</p>;
+    return <p className="tx-l cr-g2">{descriptionParagraph}</p>;
   };
   
   const background = even ? 'bc-we' : 'bc-w2';
@@ -40,77 +49,79 @@ export const ProductSlide = ({ name, description, logoUrl, sections, url, urlDes
           </div>
         </div>
         <div className="jk-row gap">
-          {sections.map((section: any, index: number) => (
+          {sections.map((section, index) => (
             <Button
               key={section.name + index}
               onClick={() => setCurrentSection(index)}
             >
-              <T>{section.name}</T>
+              <T className="tt-se">{section.name}</T>
             </Button>
           ))}
         </div>
-        {
-          <div className="jk-row gap jk-pg-lg nowrap">
-            <div className="jk-col">
-              <div className="jk-col left extend jk-pg-md">
-                <div className="jk-row extend left">
-                  <h1><span className="cr-py"><T>{sections[currentSection].name}</T></span></h1>
-                </div>
-                <div>
-                  <p className="tx-s"><T>{sections[currentSection].description}</T></p>
-                </div>
+        <div className="jk-row gap jk-pg-lg nowrap">
+          <div className="jk-col">
+            <div className="jk-col left extend jk-pg-md">
+              <div className="jk-row extend left">
+                <h2><T className="cr-py tt-se">{sections[currentSection].name}</T></h2>
               </div>
-              
-              <div className="jk-row left extend jk-pg-md">
-                <Link href={url} className="cr-py fw-bd tx-l" target="_blank">
-                  <div className="jk-row"><span><T>{urlDescription}</T></span>
-                    <NavigateNextIcon /></div>
-                </Link>
-              </div>
-              
-              <div className="jk-row nowrap gap">
-                
-                <a
-                  href="#"
-                  onClick={() => setCurrentSection(prev => {
-                    if (prev === 0) {
-                      return sections.length - 1;
-                    }
-                    return prev - 1;
-                  })}
-                >
-                  <ArrowBackIcon />
-                </a>
-                <div className="jk-row gap">
-                  {
-                    sections.map((section: any, index: number) => (
-                      <Button
-                        key={section.name + index}
-                        className={currentSection === index ? 'bc-bk' : 'bc-g3'}
-                        style={{ width: '5px', minHeight: '5px', height: '5px' }}
-                        onClick={() => setCurrentSection(index)}
-                      ></Button>
-                    ))
-                  }
-                </div>
-                <a
-                  href="#"
-                  onClick={() => setCurrentSection(prev => {
-                    if (prev === sections.length - 1) {
-                      return 0;
-                    }
-                    return prev + 1;
-                  })}
-                >
-                  <ArrowForwardIcon />
-                </a>
+              <div>
+                <p><T>{sections[currentSection].description}</T></p>
               </div>
             </div>
-            <div className="jk-row">
-              <Image src={sections[currentSection].image} alt="Juki Logo" width={700} height={500} />
+            <div className="jk-row left extend jk-pg-md">
+              <Link href={sections[currentSection].url} className="cr-py fw-bd tx-l" target="_blank">
+                <div className="jk-row">
+                  <span><T>{urlDescription}</T> / <T className="tt-se">{sections[currentSection].name}</T></span>
+                  <NavigateNextIcon />
+                </div>
+              </Link>
+            </div>
+            <div className="jk-row nowrap gap">
+              <a
+                href="#"
+                onClick={() => setCurrentSection(prev => {
+                  if (prev === 0) {
+                    return sections.length - 1;
+                  }
+                  return prev - 1;
+                })}
+                className="jk-row"
+              >
+                <ArrowBackIcon />
+              </a>
+              <div className="jk-row gap">
+                {sections.map((section: any, index: number) => (
+                  <Button
+                    key={section.name + index}
+                    className={currentSection === index ? 'bc-pd' : 'bc-g4'}
+                    style={{ width: '12px', minHeight: '12px', height: '12px' }}
+                    onClick={() => setCurrentSection(index)}
+                  />
+                ))}
+              </div>
+              <a
+                href="#"
+                onClick={() => setCurrentSection(prev => {
+                  if (prev === sections.length - 1) {
+                    return 0;
+                  }
+                  return prev + 1;
+                })}
+                className="jk-row"
+              >
+                <ArrowForwardIcon />
+              </a>
             </div>
           </div>
-        }
+          <div className="jk-row">
+            <Image
+              src={sections[currentSection].image}
+              alt="Juki Logo"
+              width={Math.min(700, viewPortWidth * 0.4)}
+              height={Math.min(700, viewPortWidth * 0.4) * 0.7}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -6,6 +6,9 @@ export type {
   SetSearchParamsType,
 } from '@juki-team/base-ui/types';
 export { QueryParamKey } from '@juki-team/base-ui/types';
-export type { ContentResponseType } from '@juki-team/commons';
+export type {
+  ContentResponseType,
+  WorksheetDataResponseDTO,
+} from '@juki-team/commons';
 export { HTTPMethod, Status, Language, ProfileSetting, MenuViewMode, Theme } from '@juki-team/commons';
-export type { FC } from 'react';
+export type { FC, PropsWithChildren } from 'react';

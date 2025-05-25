@@ -3,6 +3,7 @@
 import { Analytics } from '@vercel/analytics/react';
 import {
   ErrorBoundary,
+  Image,
   JukiProviders,
   JukiSocketAlert,
   NewVersionAvailable,
@@ -21,15 +22,15 @@ import {
 } from 'config/constants';
 import { useEffect, useJukiUI, usePreloadComponents, useUserStore } from 'hooks';
 import { createInstance, i18n } from 'i18next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
 import React, { Children, PropsWithChildren } from 'react';
 import { SWRConfig } from 'swr';
-import { FC, ImageCmpProps } from 'types';
+import { NavigationBar } from '../components/NavigationBar';
 import { useRouter } from '../hooks/useRouter';
 import { useSearchParams } from '../hooks/useSearchParams';
 import initTranslations from '../i18n/i18n';
+import { LastPathKey } from '../types';
 
 const i18nInstance = createInstance() as i18n;
 
@@ -52,6 +53,10 @@ const SponsoredByTag = () => {
   );
 };
 
+const initialLastPath = {
+  [LastPathKey.DOCS]: '/docs',
+};
+
 export const RootLayout = ({ children }: PropsWithChildren<{}>) => {
   
   useEffect(() => {
@@ -71,25 +76,10 @@ export const RootLayout = ({ children }: PropsWithChildren<{}>) => {
         revalidateIfStale: true, // when back to pages
         revalidateOnFocus: false,
         revalidateOnReconnect: true,
-        errorRetryCount: 8,
-        errorRetryInterval: 100,
-        // shouldRetryOnError: (error) => {
-        //   console.log('shouldRetryOnError', { error });
-        //   return !error.message.includes('401');
-        // },
-        // onSuccess: (...props) => {
-        //   console.log('onSuccess', props);
-        // },
-        // onError: (err, key) => {
-        //   console.log('onError', { err, key });
-        //   // Usar datos en caché si existe un error
-        //   // const cachedData = SWRConfig.default.provider().get(key);
-        //   // if (cachedData) mutate(key, cachedData, false);
-        // },
       }}
     >
       <JukiProviders
-        components={{ Image: Image as FC<ImageCmpProps>, Link: Link }}
+        components={{ Image, Link }}
         router={{
           searchParams,
           setSearchParams,
@@ -102,9 +92,11 @@ export const RootLayout = ({ children }: PropsWithChildren<{}>) => {
           reloadRoute: refresh,
           isLoadingRoute,
         }}
-        initialLastPath={{}}
+        initialLastPath={initialLastPath}
       >
-        {Children.toArray(children)}
+        <NavigationBar>
+          {Children.toArray(children)}
+        </NavigationBar>
         <SponsoredByTag />
         <JukiSocketAlert />
         <UserPreviewModal key="user-preview-modal" />
