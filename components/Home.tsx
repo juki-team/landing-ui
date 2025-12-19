@@ -1,7 +1,7 @@
 'use client';
 
-import { Button, Footer, JukiCompleteLaptopImage, PlayCircleIcon, ProductSlide, T } from 'components';
-import { useJukiUI, useRouterStore, useSearchParams, useUserStore } from 'hooks';
+import { Button, Footer, PlayCircleIcon, ProductSlide, T } from 'components';
+import { useSearchParams, useUIStore, useUserStore } from 'hooks';
 import Head from 'next/head';
 import React from 'react';
 import { QueryParamKey } from 'types';
@@ -10,13 +10,11 @@ import { Language, ProfileSetting } from '../types';
 
 export function Home() {
   
-  const pathname = useRouterStore(state => state.pathname);
-  const userPreferredTheme = useUserStore(state => state.user.settings[ProfileSetting.THEME]);
   const userPreferredLanguage = useUserStore(state => state.user.settings[ProfileSetting.LANGUAGE]);
   const userIsLogged = useUserStore(state => state.user.isLogged);
   const isEs = userPreferredLanguage === Language.ES;
   const { setSearchParams } = useSearchParams();
-  const { components: { Link } } = useJukiUI();
+  const { Link, Image } = useUIStore(store => store.components);
   
   return (
     <>
@@ -36,11 +34,14 @@ export function Home() {
                       {
                         isEs ?
                           (<>El < span className="cr-at">hogar</span> para <span className="fw-bd">programadores</span>
-                            <span className="fw-bd cr-py">competitivos</span></>) :
+                            <span className="fw-bd cr-py">competitivos</span>
+                          </>) :
                           (<>The < span className="cr-at">home</span> for <span className="fw-bd">competitive</span>
                             <span
                               className="fw-bd cr-py"
-                            >programmers</span></>)
+                            >programmers
+                            </span>
+                          </>)
                       }
                     </h1>
                     <p className="tx-h cr-g3 pad-top-bottom">
@@ -66,7 +67,14 @@ export function Home() {
                   </div>
                 </div>
                 <div className="jk-row flex-1">
-                  <div className="jk-row jk-pad-lg"><JukiCompleteLaptopImage /></div>
+                  <div className="jk-row jk-pad-lg">
+                    <Image
+                      src="https://images.juki.pub/assets/juki-complete-laptop.png"
+                      alt="Juki laptop"
+                      height={256}
+                      width={256 * 1.86}
+                    />
+                  </div>
                 </div>
               </div>
               

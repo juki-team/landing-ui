@@ -2,11 +2,11 @@
 
 import { NavigateNextIcon, T } from 'components';
 import { PRODUCTS } from 'config/constants';
-import { useJukiUI } from 'hooks';
+import { useUIStore } from 'hooks';
 
 export const ProductsMenu = () => {
   
-  const { components: { Image, Link } } = useJukiUI();
+  const { components: { Image, Link } } = useUIStore();
   
   return (
     <div style={{ width: 'var(--modal-width-md)' }} className="jk-col cr-pd bc-we jk-pg jk-br-ie">

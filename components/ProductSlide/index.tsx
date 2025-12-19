@@ -1,9 +1,10 @@
 'use client';
 
+import { usePageStore } from '@juki-team/base-ui';
 import { ArrowBackIcon, ArrowForwardIcon, Button, NavigateNextIcon, T } from 'components';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { PRODUCTS } from '../../config/constants';
-import { useJukiUI } from '../../hooks';
+import { useUIStore } from '../../hooks';
 
 type ProductType = typeof PRODUCTS[number]
 
@@ -12,19 +13,20 @@ export const ProductSlide = ({ name, description, logoUrl, sections, url, urlDes
 }) => {
   
   const [ currentSection, setCurrentSection ] = useState(0);
-  const { components: { Link, Image }, viewPortWidth } = useJukiUI();
+  const { Link, Image } = useUIStore(store => store.components);
+  const viewPortWidth = usePageStore(store => store.viewPort.width);
   
   const contentParagraph = (name: string, description: string) => {
     const descriptionArray = description.split(name);
     const descriptionParagraph = descriptionArray.map((item, index) => {
       if (index === descriptionArray.length - 1) {
-        return <T key={item}>{item}</T>;
+        return <T key={item + index}>{item}</T>;
       }
       return (
-        <>
-          <T key={item}>{item}</T>
-          <span className="cr-py fw-bd" key={index}>{name}</span>
-        </>
+        <Fragment key={item + index}>
+          <T>{item}</T>
+          <span className="cr-py fw-bd">{name}</span>
+        </Fragment>
       );
     });
     return <p className="tx-l cr-g2">{descriptionParagraph}</p>;

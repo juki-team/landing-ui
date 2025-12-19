@@ -5,3 +5,4 @@ export * from './Footer';
 export * from './ProductSlide';
 export * from './ProductsMenu';
 export * from './server';
+export * from './styles';

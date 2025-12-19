@@ -1,13 +1,13 @@
 'use client';
 
 import { FacebookIcon, T } from 'components';
-import { useJukiUI } from 'hooks';
+import { useUIStore } from 'hooks';
 import Image from 'next/image';
 import { PRODUCTS } from '../../config/constants';
 
 export function Footer() {
   
-  const { components: { Link } } = useJukiUI();
+  const { components: { Link } } = useUIStore();
   
   return (
     <div className="jk-row extend cr-pd tx-m bc-we">
@@ -31,7 +31,7 @@ export function Footer() {
           </div>
           <div className="jk-row stretch gap nowrap">
             {PRODUCTS.map(({ name, sections }) => (
-              <div className="jk-col stretch top left jk-pad-lg flex-1 gap">
+              <div className="jk-col stretch top left jk-pad-lg flex-1 gap" key={name}>
                 <div className="jk-row left cr-pd fw-bd jk-pg-tb tt-ue tx-s">{name}</div>
                 {sections.map(({ name, url }) => (
                   <Link href={url} target="_blank" className="link" key={name}>

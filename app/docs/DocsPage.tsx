@@ -16,10 +16,7 @@ export const DocsPage = ({ worksheet }: { worksheet: WorksheetDataResponseDTO })
     <div className="jk-col top nowrap stretch" style={{ overflowY: 'scroll', maxHeight: '100%' }}>
       <div className="jk-pg-tb">
         <WorksheetViewer
-          worksheetKey={worksheet.key}
-          content={worksheet.content}
-          isEditor={worksheet.user?.isManager}
-          isSolvable={worksheet.isSolvable}
+          worksheet={worksheet}
           page={page}
           subPage={subPage}
           onPageChange={(newPage, newSubPage, entries) => {

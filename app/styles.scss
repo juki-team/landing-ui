@@ -1,12 +1,7 @@
-@import "@juki-team/base-ui/styles/base";
-
 body {
   margin: 0;
   
   .jk-app {
-    width: 100vw;
-    height: var(--100VH);
-    
     .jk-horizontal-menu-layout-container {
       --menu-color: var(--t-color-white);
       color: var(--t-color-primary-dark);

@@ -1,7 +1,7 @@
 'use client';
 
 import { FetcherLayer } from 'components';
-import { jukiApiSocketManager } from 'config';
+import { jukiApiManager } from 'config';
 import { ContentResponseType, WorksheetDataResponseDTO } from 'types';
 import { DocsPage } from './DocsPage';
 
@@ -11,7 +11,7 @@ export default function Page() {
   
   return (
     <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
-      url={jukiApiSocketManager.API_V1.worksheet.getData({ params: { key: DOCS_WORKSHEET_KEY } }).url}
+      url={jukiApiManager.API_V2.worksheet.getData({ params: { key: DOCS_WORKSHEET_KEY } }).url}
     >
       {({ data }) => (
         <DocsPage worksheet={data.content} />

@@ -1,14 +1,14 @@
 'use client';
 
 import { ArticleIcon, ExpandMoreIcon, LinkLastPath, MainMenu, Popover, ProductsMenu, T } from 'components';
-import { useJukiUI, useRouterStore, useUserStore } from 'hooks';
+import { useRouterStore, useUIStore, useUserStore } from 'hooks';
 import { LastPathKey, MenuViewMode, ProfileSetting, PropsWithChildren, Theme } from 'types';
 
 export const NavigationBar = ({ children }: PropsWithChildren<{}>) => {
   
   const pathname = useRouterStore(state => state.pathname);
   const userPreferredTheme = useUserStore(state => state.user.settings?.[ProfileSetting.THEME]);
-  const { components: { Image, Link } } = useJukiUI();
+  const { components: { Image, Link } } = useUIStore();
   
   return (
     <>
