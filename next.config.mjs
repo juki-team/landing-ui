@@ -1,6 +1,7 @@
-import withPlugins from 'next-compose-plugins';
-
-const nextConfig = withPlugins( [],{
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // the Dockerfile sets NEXT_OUTPUT=standalone to build a self-contained server
+  output: process.env.NEXT_OUTPUT === 'standalone' ? 'standalone' : undefined,
   images: {
     remotePatterns: [
       {
@@ -28,6 +29,6 @@ const nextConfig = withPlugins( [],{
       },
     ];
   },
-});
+};
 
 export default nextConfig;

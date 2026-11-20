@@ -7,11 +7,11 @@ export type {
 } from '@juki-team/base-ui/types';
 export { QueryParamKey } from '@juki-team/base-ui/enums';
 export type {
-  ContentResponseType,
-  WorksheetDataResponseDTO,
-  PingResponseDTO,
-  ContentsResponseType,
-  ErrorResponseType,
+  ContentResponse as ContentResponseType,
+  WorksheetDataResponseDto,
+  PingResponseDto,
+  ContentsResponse as ContentsResponseType,
+  ErrorResponse as ErrorResponseType,
 } from '@juki-team/commons';
 export { HTTPMethod, Status, Language, ProfileSetting, MenuViewMode, Theme, ErrorCode } from '@juki-team/commons';
 export type { FC, PropsWithChildren } from 'react';

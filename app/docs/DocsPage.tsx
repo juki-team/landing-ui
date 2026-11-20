@@ -1,9 +1,9 @@
 import { Footer, WorksheetViewer } from 'components';
 import { useRouterStore } from 'hooks';
 import React from 'react';
-import { QueryParam, WorksheetDataResponseDTO } from 'types';
+import { QueryParam, WorksheetDataResponseDto } from 'types';
 
-export const DocsPage = ({ worksheet }: { worksheet: WorksheetDataResponseDTO }) => {
+export const DocsPage = ({ worksheet }: { worksheet: WorksheetDataResponseDto }) => {
   
   const searchParams = useRouterStore(state => state.searchParams);
   const setSearchParams = useRouterStore(state => state.setSearchParams);
@@ -19,7 +19,7 @@ export const DocsPage = ({ worksheet }: { worksheet: WorksheetDataResponseDTO })
           worksheet={worksheet}
           page={page}
           subPage={subPage}
-          onPageChange={(newPage, newSubPage, entries) => {
+          onPageChangeRef={(newPage, newSubPage, entries) => {
             setSearchParams([
               { name: QueryParam.PAGE, value: `${newPage}` },
               { name: QueryParam.SUB_PAGE, value: `${newSubPage}` },

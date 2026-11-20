@@ -3,7 +3,7 @@
 import { Analytics } from '@vercel/analytics/react';
 import { ErrorBoundary, Image, JukiProviders, NewVersionAvailable, T } from 'components';
 import { jukiAppRoutes } from 'config';
-import { JUKI_APP_COMPANY_KEY, NODE_ENV } from 'config/constants';
+import { JUKI_APP_ORGANIZATION_KEY, NODE_ENV } from 'config/constants';
 import { usePreloadComponents, useUIStore, useUserStore } from 'hooks';
 import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
@@ -16,10 +16,10 @@ import { LastPathKey } from '../types';
 
 const SponsoredByTag = () => {
   
-  const key = useUserStore(state => state.company.key);
+  const key = useUserStore(state => state.organization.key);
   const { components: { Link } } = useUIStore();
   
-  if (key === JUKI_APP_COMPANY_KEY) {
+  if (key === JUKI_APP_ORGANIZATION_KEY) {
     return null;
   }
   
@@ -68,8 +68,8 @@ export const RootLayout = ({ children }: PropsWithChildren<{}>) => {
           isLoadingRoute: isLoadingRoute || !loadingBasic,
         }}
         initialLastPath={initialLastPath}
-        multiCompanies={false}
-        onSeeMyProfile={(nickname, companyKey) => push(jukiAppRoutes.JUDGE().profiles.view({ nickname, companyKey }))}
+        multiOrganizations={false}
+        onSeeMyProfile={(nickname, organizationKey) => push(jukiAppRoutes.JUDGE().profiles.view({ nickname, organizationKey }))}
       >
         <NavigationBar>
           {Children.toArray(children)}

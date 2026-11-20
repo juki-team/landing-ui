@@ -1,11 +1,11 @@
 import { JukiI18nInitializer, StylesLazy, UserLoaderLayout, UserStoreProvider } from 'components';
 import { jukiApiManager } from 'config';
-import { EMPTY_COMPANY, EMPTY_USER } from 'config/constants';
+import { EMPTY_ORGANIZATION, EMPTY_USER } from 'config/constants';
 import { get } from 'helpers';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
-import { ContentResponseType, PingResponseDTO } from 'types';
+import { ContentResponseType, PingResponseDto } from 'types';
 import { RootLayout } from './RootLayout';
 import './styles.scss';
 import '@juki-team/base-ui/styles.scss';
@@ -76,11 +76,11 @@ export const dynamic = 'force-dynamic';
 
 const getInitialUsers = async () => {
   
-  const session = await get<ContentResponseType<PingResponseDTO>>(jukiApiManager.API_V2.auth.ping().url);
+  const session = await get<ContentResponseType<PingResponseDto>>(jukiApiManager.API_V2.auth.ping().url);
   
   return {
     user: session?.success ? session?.content.user : EMPTY_USER,
-    company: session?.success ? session?.content.company : EMPTY_COMPANY,
+    organization: session?.success ? session?.content.organization : EMPTY_ORGANIZATION,
     isLoading: false,
   };
 };
