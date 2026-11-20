@@ -14,7 +14,7 @@
     "@juki-team/commons": "^0.0.1016",
     "@vercel/analytics": "^1.6.1",
     "motion": "^12.23.26",
-    "next": "^16.1.0",
+    "next": "^16.4.5",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "swr": "^2.3.8"
