@@ -25,9 +25,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# local env files
-.env*.local
+# env files with real values, in any folder: only the examples are versioned
 .env
+.env.*
+!.env.example
 
 # vercel
 .vercel
